@@ -651,21 +651,7 @@ class LoggedInView extends React.Component<IProps, IState> {
                         resizeNotifier={this.props.resizeNotifier}
                         justCreatedOpts={this.props.roomJustCreatedOpts}
                         forceTimeline={this.props.forceTimeline}
-                    //     hideLeftSideBarButton={( <AccessibleTooltipButton
-                    //                 className={classNames("mx_LeftPanel_toggleCollapse", { expanded: true })}
-                    //                 onClick={() => this.setState({shouldShowLeftBar: !this.state.shouldShowLeftBar})}
-                    //                 title={this.state.shouldShowLeftBar ? _t("action|expand") : _t("action|collapse")}
-                    //                 tooltip={
-                    //                     <div>
-                    //                         <div className="mx_Tooltip_title">
-                    //                             {this.state.shouldShowLeftBar ? _t("action|expand") : _t("action|collapse")}
-                    //                         </div>
-                    //                         <div className="mx_Tooltip_sub" />
-                    //                     </div>
-                    //                 }
-                    //             />)}
-                    // />
-                    hideLeftSideBarButton={() => this.setState({shouldShowLeftBar: !this.state.shouldShowLeftBar})}
+                        hideLeftSideBarButton={() => this.setState({shouldShowLeftBar: !this.state.shouldShowLeftBar})}
         />
                 );
                 break;
@@ -695,8 +681,7 @@ class LoggedInView extends React.Component<IProps, IState> {
         const audioFeedArraysForCalls = this.state.activeCalls.map((call) => {
             return <AudioFeedArrayForLegacyCall call={call} key={call.callId} />;
         });
-//TODO: FLIP this if when ready 
-        if (UIStore.instance.windowWidth > 900) {
+        if (UIStore.instance.windowWidth < 950) {
             return (
                 <MatrixClientContext.Provider value={this._matrixClient}>
                     <div
@@ -712,7 +697,7 @@ class LoggedInView extends React.Component<IProps, IState> {
                             <div className={!this.state.shouldShowLeftBar ? "mx_LeftPanel_outerWrapperMobile": "mx_LeftPanel_outerWrapper"}>
                             {!this.state.shouldShowLeftBar && (
                                 <div className="mx_LeftPanel_innerWrapperMobile">
-                            <LeftPanelLiveShareWarning isMinimized={this.props.collapseLhs || false} />
+                            <LeftPanelLiveShareWarning isMinimized={false} />
                                 <nav className="mx_LeftPanel_mobileWrapper">
                                     <BackdropPanel blurMultiplier={0.5} backgroundImage={this.state.backgroundImage} />
                                     <SpacePanel />
@@ -720,11 +705,11 @@ class LoggedInView extends React.Component<IProps, IState> {
                                     <div
                                         className="mx_LeftPanel_mobileWrapper--user"
                                         ref={this._resizeContainer}
-                                        data-collapsed={this.props.collapseLhs ? true : undefined}
+                                        data-collapsed={undefined}
                                     >
                                         <LeftPanel
                                             pageType={this.props.page_type as PageTypes}
-                                            isMinimized={this.props.collapseLhs || false}
+                                            isMinimized={false}
                                             resizeNotifier={this.props.resizeNotifier}
                                             hideLeftSideBarButton={() => this.setState({shouldShowLeftBar: !this.state.shouldShowLeftBar})}
                                         />

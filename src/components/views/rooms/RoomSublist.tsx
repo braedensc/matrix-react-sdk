@@ -83,7 +83,7 @@ interface IProps {
     resizeNotifier: ResizeNotifier;
     extraTiles?: ReactComponentElement<typeof ExtraTile>[] | null;
     onListCollapse?: (isExpanded: boolean) => void;
-    mobileOnClick: () => any;
+    mobileOnClick?: () => any;
 }
 
 function getLabelId(tagId: TagID): string {

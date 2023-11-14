@@ -133,6 +133,7 @@ import { SubmitAskToJoinPayload } from "../../dispatcher/payloads/SubmitAskToJoi
 import RightPanelStore from "../../stores/right-panel/RightPanelStore";
 import  IconReturn from "../../../res/img/icon-return.svg";
 import { IconButton, Tooltip } from "@vector-im/compound-web";
+import UIStore from "../../stores/UIStore";
 
 const DEBUG = false;
 const PREVENT_MULTIPLE_JITSI_WITHIN = 30_000;
@@ -2637,7 +2638,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                                     <RoomHeader
                                         room={this.state.room}
                                         additionalButtons={this.state.viewRoomOpts.buttons}
-                                        minimizeLeftButton={mobileBackButtonLeft}
+                                        minimizeLeftButton={UIStore.instance.windowWidth < 950 ? mobileBackButtonLeft : undefined}
                                     />
                                 ) : (
                                     <LegacyRoomHeader
@@ -2657,7 +2658,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                                         viewingCall={viewingCall}
                                         activeCall={this.state.activeCall}
                                         additionalButtons={this.state.viewRoomOpts.buttons}
-                                        minimizeLeftButton={mobileBackButtonLeft}
+                                        minimizeLeftButton={UIStore.instance.windowWidth < 950 ? mobileBackButtonLeft : undefined}
                                     />
                                 )}
                                 {mainSplitBody}

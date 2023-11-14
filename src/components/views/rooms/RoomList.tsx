@@ -71,7 +71,7 @@ interface IProps {
     resizeNotifier: ResizeNotifier;
     isMinimized: boolean;
     activeSpace: SpaceKey;
-    mobileOnClick: () => any;
+    mobileOnClick?: () => any;
     
 }
 

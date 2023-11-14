@@ -131,6 +131,8 @@ import { isNotUndefined } from "../../Typeguards";
 import { CancelAskToJoinPayload } from "../../dispatcher/payloads/CancelAskToJoinPayload";
 import { SubmitAskToJoinPayload } from "../../dispatcher/payloads/SubmitAskToJoinPayload";
 import RightPanelStore from "../../stores/right-panel/RightPanelStore";
+import  IconReturn from "../../../res/img/icon-return.svg";
+import { IconButton, Tooltip } from "@vector-im/compound-web";
 
 const DEBUG = false;
 const PREVENT_MULTIPLE_JITSI_WITHIN = 30_000;
@@ -155,6 +157,8 @@ interface IRoomProps {
 
     // Called with the credentials of a registered user (if they were a ROU that transitioned to PWLU)
     onRegistered?(credentials: IMatrixClientCreds): void;
+
+    hideLeftSideBarButton?: any;
 }
 
 // This defines the content of the mainSplit.
@@ -2582,6 +2586,28 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
         const showForgetButton =
             !this.context.client.isGuest() && (["leave", "ban"].includes(myMembership) || myMember?.isKicked());
 
+        const minimizeLeftPanelButton = {
+            id: 'MinLeftPanel',
+            icon: <img src={IconReturn}  alt="" />,
+            label: () => 'Room List',
+            onClick: this.props.hideLeftSideBarButton
+        }
+
+
+        const mobileBackButtonLeft =
+               (<Tooltip label={minimizeLeftPanelButton.label()} key={minimizeLeftPanelButton.id}>
+                    <IconButton
+                        onClick={() => {
+                            minimizeLeftPanelButton.onClick();
+                            this.forceUpdate();
+                        }}
+                        title={minimizeLeftPanelButton.label()}
+                    >
+                        {minimizeLeftPanelButton.icon}
+                    </IconButton>
+                </Tooltip>
+            );
+
         return (
             <RoomContext.Provider value={this.state}>
                 <main
@@ -2611,6 +2637,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                                     <RoomHeader
                                         room={this.state.room}
                                         additionalButtons={this.state.viewRoomOpts.buttons}
+                                        minimizeLeftButton={mobileBackButtonLeft}
                                     />
                                 ) : (
                                     <LegacyRoomHeader
@@ -2630,6 +2657,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                                         viewingCall={viewingCall}
                                         activeCall={this.state.activeCall}
                                         additionalButtons={this.state.viewRoomOpts.buttons}
+                                        minimizeLeftButton={mobileBackButtonLeft}
                                     />
                                 )}
                                 {mainSplitBody}

@@ -71,6 +71,8 @@ interface IProps {
     resizeNotifier: ResizeNotifier;
     isMinimized: boolean;
     activeSpace: SpaceKey;
+    mobileOnClick: () => any;
+    
 }
 
 interface IState {
@@ -220,7 +222,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
 
         contextMenuContent = (
             <IconizedContextMenuOptionList first>
-                <IconizedContextMenuOption
+                {/* <IconizedContextMenuOption
                     label={_t("action|explore_rooms")}
                     iconClassName="mx_RoomList_iconExplore"
                     onClick={(e) => {
@@ -234,7 +236,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
                         });
                         PosthogTrackers.trackInteraction("WebRoomListRoomsSublistPlusMenuExploreRoomsItem", e);
                     }}
-                />
+                /> */}
                 {showCreateRoom ? (
                     <>
                         <IconizedContextMenuOption
@@ -428,6 +430,8 @@ export default class RoomList extends React.PureComponent<IProps, IState> {
     public constructor(props: IProps) {
         super(props);
 
+        console.log('RoomListprops', this.props)
+
         this.state = {
             sublists: {},
             suggestedRooms: SpaceStore.instance.suggestedRooms,
@@ -582,9 +586,9 @@ export default class RoomList extends React.PureComponent<IProps, IState> {
 
         return TAG_ORDER.map((orderedTagId) => {
             let extraTiles: ReactComponentElement<typeof ExtraTile>[] | undefined;
-            if (orderedTagId === DefaultTagID.Suggested) {
-                extraTiles = this.renderSuggestedRooms();
-            }
+            // if (orderedTagId === DefaultTagID.Suggested) {
+            //     extraTiles = this.renderSuggestedRooms();
+            // }
 
             const aesthetics = TAG_AESTHETICS[orderedTagId];
             if (!aesthetics) throw new Error(`Tag ${orderedTagId} does not have aesthetics`);
@@ -625,10 +629,13 @@ export default class RoomList extends React.PureComponent<IProps, IState> {
                     alwaysVisible={alwaysVisible}
                     onListCollapse={this.props.onListCollapse}
                     forceExpanded={forceExpanded}
+                    mobileOnClick={this.props.mobileOnClick}
                 />
             );
         });
     }
+
+   
 
     public focus(): void {
         // focus the first focusable element in this aria treeview widget

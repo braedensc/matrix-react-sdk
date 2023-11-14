@@ -16,7 +16,7 @@ limitations under the License.
 
 import React, { ChangeEvent } from "react";
 
-import { Icon as HomeIcon } from "../../../../../../res/img/element-icons/home.svg";
+import { Icon as HomeIcon } from "../../../../../../res/img/element-icons/onsolve-icon.svg";
 import { Icon as FavoriteIcon } from "../../../../../../res/img/element-icons/roomlist/favorite.svg";
 import { Icon as MembersIcon } from "../../../../../../res/img/element-icons/room/members.svg";
 import { Icon as HashCircleIcon } from "../../../../../../res/img/element-icons/roomlist/hash-circle.svg";

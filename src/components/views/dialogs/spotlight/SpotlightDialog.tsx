@@ -570,13 +570,13 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
                 role="group"
                 aria-labelledby="mx_SpotlightDialog_section_otherSearches"
             >
-                <h4 id="mx_SpotlightDialog_section_otherSearches">
+                {/* <h4 id="mx_SpotlightDialog_section_otherSearches">
                     {trimmedQuery
                         ? _t("spotlight_dialog|heading_with_query", { query })
                         : _t("spotlight_dialog|heading_without_query")}
-                </h4>
+                </h4> */}
                 <div>
-                    {filter !== Filter.PublicSpaces && supportsSpaceFiltering && (
+                    {/* {filter !== Filter.PublicSpaces && supportsSpaceFiltering && (
                         <Option
                             id="mx_SpotlightDialog_button_explorePublicSpaces"
                             className="mx_SpotlightDialog_explorePublicSpaces"
@@ -602,7 +602,7 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
                         >
                             {filterToLabel(Filter.People)}
                         </Option>
-                    )}
+                    )} */}
                 </div>
             </div>
         );

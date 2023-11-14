@@ -59,6 +59,7 @@ interface Props {
     showMessagePreview: boolean;
     isMinimized: boolean;
     tag: TagID;
+    mobileViewToggle: () => any;
 }
 
 interface ClassProps extends Props {
@@ -93,6 +94,8 @@ export class RoomTile extends React.PureComponent<ClassProps, State> {
 
     public constructor(props: ClassProps) {
         super(props);
+
+        console.log('roomtileprops', this.props)
 
         this.state = {
             selected: SdkContextClass.instance.roomViewStore.getRoomId() === this.props.room.roomId,
@@ -246,6 +249,8 @@ export class RoomTile extends React.PureComponent<ClassProps, State> {
             metricsTrigger: "RoomList",
             metricsViaKeyboard: ev.type !== "click",
         });
+        console.log('roomtileprops2', this.props)
+        this.props.mobileViewToggle();
     };
 
     private onActiveRoomUpdate = (isActive: boolean): void => {

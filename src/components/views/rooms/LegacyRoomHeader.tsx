@@ -479,6 +479,7 @@ export interface IProps {
     viewingCall: boolean;
     activeCall: Call | null;
     additionalButtons?: ViewRoomOpts["buttons"];
+    minimizeLeftButton?: any;
 }
 
 interface IState {
@@ -669,7 +670,7 @@ export default class RoomHeader extends React.Component<IProps, IState> {
                 );
             }
         }
-
+console.log('addbuttons', this.props.additionalButtons)
         return (
             <>
                 {this.props.additionalButtons?.map((props) => {
@@ -847,6 +848,7 @@ export default class RoomHeader extends React.Component<IProps, IState> {
                     className="mx_LegacyRoomHeader_wrapper"
                     aria-owns={this.state.rightPanelOpen ? "mx_RightPanel" : undefined}
                 >
+                    {this.props.minimizeLeftButton}
                     <div className="mx_LegacyRoomHeader_avatar">{roomAvatar}</div>
                     {icon}
                     {name}

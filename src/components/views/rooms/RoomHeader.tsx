@@ -67,9 +67,11 @@ function notificationColorToIndicator(color: NotificationColor): React.Component
 export default function RoomHeader({
     room,
     additionalButtons,
+    minimizeLeftButton,
 }: {
     room: Room;
     additionalButtons?: ViewRoomOpts["buttons"];
+    minimizeLeftButton: any;
 }): JSX.Element {
     const client = useMatrixClientContext();
 
@@ -123,6 +125,7 @@ export default function RoomHeader({
                 RightPanelStore.instance.showOrHidePanel(RightPanelPhases.RoomSummary);
             }}
         >
+            {minimizeLeftButton}
             <RoomAvatar room={room} size="40px" />
             <Box flex="1" className="mx_RoomHeader_info">
                 <BodyText

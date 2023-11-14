@@ -16,13 +16,13 @@ limitations under the License.
 
 .mx_SpacePanel {
     --activeBackground-color: $panel-actions;
-    --activeBorder-color: $primary-content;
+    --activeBorder-color: white;
     --activeBorder-transparent-gap: 1px;
     --gutterSize: 16px;
     --height-nested: 24px;
     --height-topLevel: 32px;
 
-    background-color: $spacePanel-bg-color;
+    background: #1c293b;
     flex: 0 0 auto;
     padding: 0;
     margin: 0;
@@ -156,7 +156,7 @@ limitations under the License.
             display: block;
             text-overflow: ellipsis;
             overflow: hidden;
-            font: var(--cpd-font-body-md-regular);
+            color: white;
         }
 
         .mx_SpaceButton_toggleCollapse {
@@ -199,7 +199,7 @@ limitations under the License.
                 background-color: $panel-actions;
 
                 &::before {
-                    background-color: $secondary-content;
+                    background-color: white;
                 }
             }
         }

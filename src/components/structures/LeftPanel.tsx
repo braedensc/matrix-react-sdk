@@ -45,11 +45,14 @@ import { ButtonEvent } from "../views/elements/AccessibleButton";
 import PosthogTrackers from "../../PosthogTrackers";
 import PageType from "../../PageTypes";
 import { UserOnboardingButton } from "../views/user-onboarding/UserOnboardingButton";
+import { IconButton, Tooltip } from "@vector-im/compound-web";
+import  IconReturn from "../../../res/img/icon-return.svg";
 
 interface IProps {
     isMinimized: boolean;
     pageType: PageType;
     resizeNotifier: ResizeNotifier;
+    hideLeftSideBarButton: () => any;
 }
 
 enum BreadcrumbsMode {
@@ -339,16 +342,48 @@ export default class LeftPanel extends React.Component<IProps, IState> {
             );
         }
 
-        let rightButton: JSX.Element | undefined;
-        if (this.state.activeSpace === MetaSpace.Home && shouldShowComponent(UIComponent.ExploreRooms)) {
-            rightButton = (
-                <AccessibleTooltipButton
-                    className="mx_LeftPanel_exploreButton"
-                    onClick={this.onExplore}
-                    title={_t("action|explore_rooms")}
-                />
-            );
+        // let rightButton: JSX.Element | undefined;
+        // if (this.state.activeSpace === MetaSpace.Home && shouldShowComponent(UIComponent.ExploreRooms)) {
+        //     rightButton = (
+        //         <Tooltip label="View Room" key="RoomViewToggleButtonMobile">
+        //             <IconButton
+        //                 onClick={() => {
+        //                     this.props.hideLeftSideBarButton()
+        //                     this.forceUpdate();
+        //                 }}
+        //                 title="View Room"
+        //             >
+        //                 <img src={IconReturn}  alt="" />
+        //             </IconButton>
+        //         </Tooltip>
+        //     );
+        // }
+
+        console.log('leftpaneleprops', this.props)
+
+        const minimizeLeftPanelButton = {
+            id: 'MinLeftPanel',
+            icon: <img src={IconReturn}  alt="" />,
+            label: () => 'Room List',
+            onClick: this.props.hideLeftSideBarButton
         }
+
+
+        const mobileBackButtonLeft =
+               (<Tooltip label={minimizeLeftPanelButton.label()} key={minimizeLeftPanelButton.id}>
+                    <IconButton
+                        onClick={() => {
+                            minimizeLeftPanelButton.onClick();
+                            this.forceUpdate();
+                        }}
+                        title={minimizeLeftPanelButton.label()}
+                    >
+                        {minimizeLeftPanelButton.icon}
+                    </IconButton>
+                </Tooltip>
+            );
+
+          const rightButton = mobileBackButtonLeft;
 
         return (
             <div
@@ -377,6 +412,7 @@ export default class LeftPanel extends React.Component<IProps, IState> {
                 onResize={this.refreshStickyHeaders}
                 onListCollapse={this.refreshStickyHeaders}
                 ref={this.roomListRef}
+                mobileOnClick={this.props.hideLeftSideBarButton}
             />
         );
 

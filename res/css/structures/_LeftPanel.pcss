@@ -21,11 +21,51 @@ limitations under the License.
     }
 }
 
+.mx_LeftPanel_toggleCollapse {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background-color: $tertiary-content;
+        top: 19px; /* v-align with avatar */
+        right: -8px;
+
+        &:not(.expanded) {
+            opacity: 0;
+
+            &::before {
+                mask-position: center 1px;
+            }
+        }
+
+        &.expanded::before {
+            transform: rotate(90deg);
+        }
+    }
+
 .mx_LeftPanel_outerWrapper {
     display: flex;
     flex-direction: column;
     max-width: 50%;
     position: relative;
+
+    /* Contain the amount of layers rendered by constraining what actually needs re-layering via css */
+    contain: layout paint;
+}
+
+.mx_LeftPanel_outerWrapperMobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    /* Contain the amount of layers rendered by constraining what actually needs re-layering via css */
+    contain: layout paint;
+}
+
+.mx_LeftPanel_innerWrapperMobile {
+    display: flex;
+    width: 100%;
+    height: 100%;
 
     /* Contain the amount of layers rendered by constraining what actually needs re-layering via css */
     contain: layout paint;
@@ -53,6 +93,26 @@ limitations under the License.
         }
     }
 }
+
+.mx_LeftPanel_mobileWrapper {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    height: 100%; /* ensure space panel is still scrollable with an outer wrapper */
+
+    .mx_LeftPanel_mobileWrapper--user {
+        background-color: $roomlist-bg-color;
+        display: flex;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+
+        &[data-collapsed] {
+            max-width: var(--collapsedWidth);
+        }
+    }
+}
+
 
 .mx_LeftPanel {
     background-color: $roomlist-bg-color;

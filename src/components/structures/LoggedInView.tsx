@@ -78,6 +78,7 @@ import { ConfigOptions } from "../../SdkConfig";
 import UIStore from "../../stores/UIStore";
 import AccessibleTooltipButton from "../views/elements/AccessibleTooltipButton";
 import { _t } from "../../languageHandler";
+import SpaceStore from "../../stores/spaces/SpaceStore";
 
 
 
@@ -668,7 +669,6 @@ class LoggedInView extends React.Component<IProps, IState> {
                 }
                 break;
         }
-
         const wrapperClasses = classNames({
             mx_MatrixChat_wrapper: true,
             mx_MatrixChat_useCompactLayout: this.state.useCompactLayout,
@@ -681,6 +681,7 @@ class LoggedInView extends React.Component<IProps, IState> {
         const audioFeedArraysForCalls = this.state.activeCalls.map((call) => {
             return <AudioFeedArrayForLegacyCall call={call} key={call.callId} />;
         });
+        console.log('active space name form store', SpaceStore.instance.activeSpaceName)
         if (UIStore.instance.windowWidth < 950) {
             return (
                 <MatrixClientContext.Provider value={this._matrixClient}>

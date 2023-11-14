@@ -34,6 +34,13 @@ export enum MetaSpace {
     Orphans = "orphans-space",
 }
 
+export enum ONSOLVE_SPACE_NAMES {
+    GENERAL_CHAT = "General Chat",
+    INCIDENT_MANAGEMENT = "Incident Management",
+    RECIPIENT_ASSISTANCE = "Recipient Assistance",
+
+}
+
 export const getMetaSpaceName = (spaceKey: MetaSpace, allRoomsInHome = false): string => {
     switch (spaceKey) {
         case MetaSpace.Home:

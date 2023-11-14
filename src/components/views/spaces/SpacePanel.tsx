@@ -88,6 +88,8 @@ const useSpaces = (): [Room[], MetaSpace[], Room[], SpaceKey] => {
     return [invites, metaSpaces, actualSpaces, activeSpace];
 };
 
+
+
 export const HomeButtonContextMenu: React.FC<ComponentProps<typeof SpaceContextMenu>> = ({
     onFinished,
     hideHeader,
@@ -224,14 +226,6 @@ const CreateSpaceButton: React.FC<Pick<IInnerSpacePanelProps, "isPanelCollapsed"
     if (menuDisplayed) {
         contextMenu = <SpaceCreateMenu onFinished={closeMenu} />;
     }
-
-    // const onNewClick = menuDisplayed
-    //     ? closeMenu
-    //     : () => {
-    //           if (!isPanelCollapsed) setPanelCollapsed(true);
-    //           openMenu();
-    //       };
-
     return (
         <li
             className={classNames("mx_SpaceItem mx_SpaceItem_new", {
@@ -240,17 +234,6 @@ const CreateSpaceButton: React.FC<Pick<IInnerSpacePanelProps, "isPanelCollapsed"
             role="treeitem"
             aria-selected={false}
         >
-            {/* <SpaceButton
-                data-testid="create-space-button"
-                className={classNames("mx_SpaceButton_new", {
-                    mx_SpaceButton_newCancel: menuDisplayed,
-                })}
-                label={menuDisplayed ? _t("action|cancel") : _t("create_space|label")}
-                onClick={onNewClick}
-                isNarrow={isPanelCollapsed}
-                innerRef={handle}
-                size="32px"
-            /> */}
 
             {contextMenu}
         </li>
@@ -282,6 +265,8 @@ const InnerSpacePanel = React.memo<IInnerSpacePanelProps>(
             const Component = metaSpaceComponentMap[key];
             return <Component key={key} selected={activeSpace === key} isPanelCollapsed={isPanelCollapsed} />;
         });
+
+        console.log('active space', activeSpaces)
 
         return (
             <IndicatorScrollbar

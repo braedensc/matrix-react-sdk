@@ -48,6 +48,7 @@ import {
     isMetaSpace,
     ISuggestedRoom,
     MetaSpace,
+    ONSOLVE_SPACE_NAMES,
     SpaceKey,
     UPDATE_HOME_BEHAVIOUR,
     UPDATE_INVITED_SPACES,
@@ -69,14 +70,17 @@ import { ViewHomePagePayload } from "../../dispatcher/payloads/ViewHomePagePaylo
 import { SwitchSpacePayload } from "../../dispatcher/payloads/SwitchSpacePayload";
 import { AfterLeaveRoomPayload } from "../../dispatcher/payloads/AfterLeaveRoomPayload";
 import { SdkContextClass } from "../../contexts/SDKContext";
+import { setUIValueClean } from "@testing-library/user-event/dist/types/document/UI";
 
 interface IState {}
 
 const ACTIVE_SPACE_LS_KEY = "mx_active_space";
+const ACTIVE_SPACE_LS_NAME_KEY = "mx_active_space_name";
 
 const metaSpaceOrder: MetaSpace[] = [MetaSpace.Home, MetaSpace.Favourites, MetaSpace.People, MetaSpace.Orphans];
 
 const MAX_SUGGESTED_ROOMS = 20;
+
 
 const getSpaceContextKey = (space: SpaceKey): string => `mx_space_context_${space}`;
 
@@ -146,6 +150,8 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
     };
     // The space currently selected in the Space Panel
     private _activeSpace: SpaceKey = MetaSpace.Home; // set properly by onReady
+
+    private _activeSpaceName = 'Home';
     private _suggestedRooms: ISuggestedRoom[] = [];
     private _invitedSpaces = new Set<Room>();
     private spaceOrderLocalEchoMap = new Map<string, string | undefined>();
@@ -178,6 +184,10 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
 
     public get activeSpace(): SpaceKey {
         return this._activeSpace;
+    }
+
+    public get activeSpaceName(): string {
+        return this._activeSpaceName;
     }
 
     public get activeSpaceRoom(): Room | null {
@@ -243,8 +253,13 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
         } else if (!this.enabledMetaSpaces.includes(space as MetaSpace)) {
             return;
         }
+        console.log('setting active space, clispace', cliSpace)
+        console.log('setting active space', space)
+        const spaceName = cliSpace?.name || "Home"
+        console.log('space name form clispace', spaceName)
 
         window.localStorage.setItem(ACTIVE_SPACE_LS_KEY, (this._activeSpace = space)); // Update & persist selected space
+        window.localStorage.setItem(ACTIVE_SPACE_LS_NAME_KEY, (this._activeSpaceName = spaceName));
 
         if (contextSwitch) {
             // view last selected room from space
@@ -297,6 +312,8 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
             );
         }
     }
+
+
 
     private async loadSuggestedRooms(space: Room): Promise<void> {
         const suggestedRooms = await this.fetchSuggestedRooms(space);
@@ -1212,6 +1229,7 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
                 if (room?.isSpaceRoom()) {
                     // Don't context switch when navigating to the space room
                     // as it will cause you to end up in the wrong room
+                    console.log('switching space', room)
                     this.setActiveSpace(room.roomId, false);
                 } else {
                     this.switchSpaceIfNeeded(roomId);

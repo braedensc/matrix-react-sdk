@@ -584,7 +584,8 @@ export default class RoomHeader extends React.Component<IProps, IState> {
         const startButtons: JSX.Element[] = [];
 
         if (!this.props.viewingCall && this.props.inRoom && !this.context.tombstone) {
-            startButtons.push(<CallButtons key="calls" room={this.props.room} />);
+            //TODO: OnSolve needs to add voice/video calls back here when ready 
+            // startButtons.push(<CallButtons key="calls" room={this.props.room} />);
         }
 
         if (this.props.viewingCall && this.props.activeCall instanceof ElementCall) {

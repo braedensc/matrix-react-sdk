@@ -162,24 +162,6 @@ class RoomSettingsDialog extends React.Component<IProps, IState> {
         }
         tabs.push(
             new Tab(
-                RoomSettingsTab.Security,
-                _td("room_settings|security|title"),
-                "mx_RoomSettingsDialog_securityIcon",
-                <SecurityRoomSettingsTab room={this.state.room} closeSettingsFn={() => this.props.onFinished(true)} />,
-                "RoomSettingsSecurityPrivacy",
-            ),
-        );
-        tabs.push(
-            new Tab(
-                RoomSettingsTab.Roles,
-                _td("room_settings|permissions|title"),
-                "mx_RoomSettingsDialog_rolesIcon",
-                <RolesRoomSettingsTab room={this.state.room} />,
-                "RoomSettingsRolesPermissions",
-            ),
-        );
-        tabs.push(
-            new Tab(
                 RoomSettingsTab.Notifications,
                 _td("notifications|enable_prompt_toast_title"),
                 "mx_RoomSettingsDialog_notificationsIcon",
@@ -193,43 +175,17 @@ class RoomSettingsDialog extends React.Component<IProps, IState> {
             ),
         );
 
-        if (SettingsStore.getValue("feature_bridge_state")) {
-            tabs.push(
-                new Tab(
-                    RoomSettingsTab.Bridges,
-                    _td("room_settings|bridges|title"),
-                    "mx_RoomSettingsDialog_bridgesIcon",
-                    <BridgeSettingsTab room={this.state.room} />,
-                    "RoomSettingsBridges",
-                ),
-            );
-        }
-
-        tabs.push(
-            new Tab(
-                RoomSettingsTab.PollHistory,
-                _td("right_panel|polls_button"),
-                "mx_RoomSettingsDialog_pollsIcon",
-                <PollHistoryTab room={this.state.room} onFinished={() => this.props.onFinished(true)} />,
-            ),
-        );
-
-        if (SettingsStore.getValue(UIFeature.AdvancedSettings)) {
-            tabs.push(
-                new Tab(
-                    RoomSettingsTab.Advanced,
-                    _td("common|advanced"),
-                    "mx_RoomSettingsDialog_warningIcon",
-                    (
-                        <AdvancedRoomSettingsTab
-                            room={this.state.room}
-                            closeSettingsFn={() => this.props.onFinished(true)}
-                        />
-                    ),
-                    "RoomSettingsAdvanced",
-                ),
-            );
-        }
+        // if (SettingsStore.getValue("feature_bridge_state")) {
+        //     tabs.push(
+        //         new Tab(
+        //             RoomSettingsTab.Bridges,
+        //             _td("room_settings|bridges|title"),
+        //             "mx_RoomSettingsDialog_bridgesIcon",
+        //             <BridgeSettingsTab room={this.state.room} />,
+        //             "RoomSettingsBridges",
+        //         ),
+        //     );
+        // }
 
         return tabs as NonEmptyArray<Tab<RoomSettingsTab>>;
     }

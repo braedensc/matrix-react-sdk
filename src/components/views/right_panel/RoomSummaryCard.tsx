@@ -374,42 +374,28 @@ const RoomSummaryCard: React.FC<IProps> = ({ room, permalinkCreator, onClose, on
                     {_t("common|people")}
                     <span className="mx_BaseCard_Button_sublabel">{memberCount}</span>
                 </Button>
-                {!isVideoRoom && (
-                    <Button className="mx_RoomSummaryCard_icon_files" onClick={onRoomFilesClick}>
-                        {_t("right_panel|files_button")}
-                    </Button>
-                )}
-                {!isVideoRoom && (
-                    <Button className="mx_RoomSummaryCard_icon_poll" onClick={onRoomPollHistoryClick}>
-                        {_t("right_panel|polls_button")}
-                    </Button>
-                )}
+            
+             
                 {pinningEnabled && !isVideoRoom && (
                     <Button className="mx_RoomSummaryCard_icon_pins" onClick={onRoomPinsClick}>
                         {_t("right_panel|pinned_messages_button")}
                         {pinCount > 0 && <span className="mx_BaseCard_Button_sublabel">{pinCount}</span>}
                     </Button>
                 )}
-                {!isVideoRoom && (
+                {/* {!isVideoRoom && (
                     <Button className="mx_RoomSummaryCard_icon_export" onClick={onRoomExportClick}>
                         {_t("right_panel|export_chat_button")}
                     </Button>
-                )}
-                <Button
-                    data-testid="shareRoomButton"
-                    className="mx_RoomSummaryCard_icon_share"
-                    onClick={onShareRoomClick}
-                >
-                    {_t("right_panel|share_button")}
-                </Button>
+                )} */}
+
                 <Button className="mx_RoomSummaryCard_icon_settings" onClick={onRoomSettingsClick}>
                     {_t("right_panel|settings_button")}
                 </Button>
             </Group>
 
-            {SettingsStore.getValue(UIFeature.Widgets) &&
+            {/* {SettingsStore.getValue(UIFeature.Widgets) &&
                 !isVideoRoom &&
-                shouldShowComponent(UIComponent.AddIntegrations) && <AppsSection room={room} />}
+                shouldShowComponent(UIComponent.AddIntegrations) && <AppsSection room={room} />} */}
         </BaseCard>
     );
 };

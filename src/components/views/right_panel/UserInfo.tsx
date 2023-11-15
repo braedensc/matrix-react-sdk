@@ -434,43 +434,6 @@ export const UserOptionsSection: React.FC<{
             </AccessibleButton>
         );
 
-        if (member instanceof RoomMember && member.roomId && !isSpace) {
-            const onReadReceiptButton = function (): void {
-                const room = cli.getRoom(member.roomId);
-                dis.dispatch<ViewRoomPayload>({
-                    action: Action.ViewRoom,
-                    highlighted: true,
-                    // this could return null, the default prevents a type error
-                    event_id: room?.getEventReadUpTo(member.userId) || undefined,
-                    room_id: member.roomId,
-                    metricsTrigger: undefined, // room doesn't change
-                });
-            };
-
-            const onInsertPillButton = function (): void {
-                dis.dispatch<ComposerInsertPayload>({
-                    action: Action.ComposerInsert,
-                    userId: member.userId,
-                    timelineRenderingType: TimelineRenderingType.Room,
-                });
-            };
-
-            const room = member instanceof RoomMember ? cli.getRoom(member.roomId) : undefined;
-            if (room?.getEventReadUpTo(member.userId)) {
-                readReceiptButton = (
-                    <AccessibleButton kind="link" onClick={onReadReceiptButton} className="mx_UserInfo_field">
-                        {_t("user_info|jump_to_rr_button")}
-                    </AccessibleButton>
-                );
-            }
-
-            insertPillButton = (
-                <AccessibleButton kind="link" onClick={onInsertPillButton} className="mx_UserInfo_field">
-                    {_t("action|mention")}
-                </AccessibleButton>
-            );
-        }
-
         if (
             member instanceof RoomMember &&
             canInvite &&
@@ -516,27 +479,19 @@ export const UserOptionsSection: React.FC<{
         }
     }
 
-    const shareUserButton = (
-        <AccessibleButton kind="link" onClick={onShareUserClick} className="mx_UserInfo_field">
-            {_t("user_info|share_button")}
-        </AccessibleButton>
-    );
-
     const directMessageButton = isMe ? null : <MessageButton member={member} />;
-
-    return (
+return !isMe ? (
         <div className="mx_UserInfo_container">
             <h3>{_t("common|options")}</h3>
             <div>
                 {directMessageButton}
                 {readReceiptButton}
-                {shareUserButton}
                 {insertPillButton}
                 {inviteUserButton}
                 {ignoreButton}
             </div>
         </div>
-    );
+    ) : <div />;
 };
 
 export const warnSelfDemote = async (isSpace: boolean): Promise<boolean> => {
@@ -1444,118 +1399,10 @@ const BasicUserInfo: React.FC<{
         spinner = <Spinner />;
     }
 
-    // only display the devices list if our client supports E2E
-    const cryptoEnabled = Boolean(cli.getCrypto());
-
-    let text;
-    if (!isRoomEncrypted) {
-        if (!cryptoEnabled) {
-            text = _t("encryption|unsupported");
-        } else if (room && !room.isSpaceRoom()) {
-            text = _t("user_info|room_unencrypted");
-        }
-    } else if (!room.isSpaceRoom()) {
-        text = _t("user_info|room_encrypted");
-    }
-
-    let verifyButton;
-    const homeserverSupportsCrossSigning = useHomeserverSupportsCrossSigning(cli);
-
-    const userTrust = useAsyncMemo<UserVerificationStatus | undefined>(
-        async () => cli.getCrypto()?.getUserVerificationStatus(member.userId),
-        [member.userId],
-        // the user verification status is not initialized
-        undefined,
-    );
-    const hasUserVerificationStatus = Boolean(userTrust);
-    const isUserVerified = Boolean(userTrust?.isVerified());
-    const isMe = member.userId === cli.getUserId();
-    const canVerify =
-        hasUserVerificationStatus &&
-        homeserverSupportsCrossSigning &&
-        !isUserVerified &&
-        !isMe &&
-        devices &&
-        devices.length > 0;
-
-    const setUpdating: SetUpdating = (updating) => {
-        setPendingUpdateCount((count) => count + (updating ? 1 : -1));
-    };
-    const hasCrossSigningKeys = useHasCrossSigningKeys(cli, member as User, canVerify, setUpdating);
-
-    // Display the spinner only when
-    // - the devices are not populated yet, or
-    // - the crypto is available and we don't have the user verification status yet
-    const showDeviceListSpinner = (cryptoEnabled && !hasUserVerificationStatus) || devices === undefined;
-    if (canVerify) {
-        if (hasCrossSigningKeys !== undefined) {
-            // Note: mx_UserInfo_verifyButton is for the end-to-end tests
-            verifyButton = (
-                <div className="mx_UserInfo_container_verifyButton">
-                    <AccessibleButton
-                        kind="link"
-                        className="mx_UserInfo_field mx_UserInfo_verifyButton"
-                        onClick={() => {
-                            if (hasCrossSigningKeys) {
-                                verifyUser(cli, member as User);
-                            } else {
-                                legacyVerifyUser(cli, member as User);
-                            }
-                        }}
-                    >
-                        {_t("action|verify")}
-                    </AccessibleButton>
-                </div>
-            );
-        } else if (!showDeviceListSpinner) {
-            // HACK: only show a spinner if the device section spinner is not shown,
-            // to avoid showing a double spinner
-            // We should ask for a design that includes all the different loading states here
-            verifyButton = <Spinner />;
-        }
-    }
-
-    let editDevices;
-    if (member.userId == cli.getUserId()) {
-        editDevices = (
-            <div>
-                <AccessibleButton
-                    kind="link"
-                    className="mx_UserInfo_field"
-                    onClick={() => {
-                        dis.dispatch({
-                            action: Action.ViewUserDeviceSettings,
-                        });
-                    }}
-                >
-                    {_t("user_info|edit_own_devices")}
-                </AccessibleButton>
-            </div>
-        );
-    }
-
-    const securitySection = (
-        <div className="mx_UserInfo_container">
-            <h3>{_t("common|security")}</h3>
-            <p>{text}</p>
-            {verifyButton}
-            {cryptoEnabled && (
-                <DevicesSection
-                    loading={showDeviceListSpinner}
-                    devices={devices}
-                    userId={member.userId}
-                    isUserVerified={isUserVerified}
-                />
-            )}
-            {editDevices}
-        </div>
-    );
 
     return (
         <React.Fragment>
             {memberDetails}
-
-            {securitySection}
             <UserOptionsSection
                 canInvite={roomPermissions.canInvite}
                 isIgnored={isIgnored}

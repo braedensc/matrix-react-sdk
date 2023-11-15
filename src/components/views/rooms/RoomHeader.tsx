@@ -71,7 +71,7 @@ export default function RoomHeader({
 }: {
     room: Room;
     additionalButtons?: ViewRoomOpts["buttons"];
-    minimizeLeftButton: any;
+    minimizeLeftButton?: any;
 }): JSX.Element {
     const client = useMatrixClientContext();
 
@@ -149,28 +149,6 @@ export default function RoomHeader({
                             />
                         </Tooltip>
                     )}
-
-                    {isDirectMessage && e2eStatus === E2EStatus.Verified && (
-                        <Tooltip label={_t("common|verified")} side="right">
-                            <VerifiedIcon
-                                width="16px"
-                                height="16px"
-                                className="mx_RoomHeader_icon mx_Verified"
-                                aria-label={_t("common|verified")}
-                            />
-                        </Tooltip>
-                    )}
-
-                    {isDirectMessage && e2eStatus === E2EStatus.Warning && (
-                        <Tooltip label={_t("room|header_untrusted_label")} side="right">
-                            <ErrorIcon
-                                width="16px"
-                                height="16px"
-                                className="mx_RoomHeader_icon mx_Untrusted"
-                                aria-label={_t("room|header_untrusted_label")}
-                            />
-                        </Tooltip>
-                    )}
                 </BodyText>
                 {roomTopic && (
                     <BodyText as="div" size="sm" className="mx_RoomHeader_topic mx_RoomHeader_truncated mx_lineClamp">
@@ -216,7 +194,7 @@ export default function RoomHeader({
                         <VideoCallIcon />
                     </IconButton>
                 </Tooltip>
-                <Tooltip label={_t("common|threads")}>
+                {/* <Tooltip label={_t("common|threads")}>
                     <IconButton
                         indicator={notificationColorToIndicator(threadNotifications)}
                         onClick={(evt) => {
@@ -227,7 +205,7 @@ export default function RoomHeader({
                     >
                         <ThreadsIcon />
                     </IconButton>
-                </Tooltip>
+                </Tooltip> */}
                 {notificationsEnabled && (
                     <Tooltip label={_t("notifications|enable_prompt_toast_title")}>
                         <IconButton

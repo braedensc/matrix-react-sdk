@@ -245,6 +245,8 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
      */
     public setActiveSpace(space: SpaceKey, contextSwitch = true): void {
         if (!space || !this.matrixClient || space === this.activeSpace) return;
+  
+        console.log('setting active space', space)
 
         let cliSpace: Room | null = null;
         if (!isMetaSpace(space)) {
@@ -253,10 +255,9 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
         } else if (!this.enabledMetaSpaces.includes(space as MetaSpace)) {
             return;
         }
-        console.log('setting active space, clispace', cliSpace)
-        console.log('setting active space', space)
         const spaceName = cliSpace?.name || "Home"
-        console.log('space name form clispace', spaceName)
+        console.log('setting active space, clispace', cliSpace)
+  
 
         window.localStorage.setItem(ACTIVE_SPACE_LS_KEY, (this._activeSpace = space)); // Update & persist selected space
         window.localStorage.setItem(ACTIVE_SPACE_LS_NAME_KEY, (this._activeSpaceName = spaceName));
@@ -288,6 +289,7 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
                     metricsTrigger: "WebSpaceContextSwitch",
                 });
             } else {
+                console.log('space name default', space)
                 defaultDispatcher.dispatch<ViewHomePagePayload>({
                     action: Action.ViewHomePage,
                     context_switch: true,

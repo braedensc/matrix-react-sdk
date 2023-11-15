@@ -331,7 +331,7 @@ function LocalRoomView(props: LocalRoomViewProps): ReactElement {
                         e2eStatus={room.encrypted ? E2EStatus.Normal : undefined}
                         onAppsClick={null}
                         appsShown={false}
-                        excludedRightPanelPhaseButtons={[]}
+                        excludedRightPanelPhaseButtons={[RightPanelPhases.ThreadPanel]}
                         showButtons={false}
                         enableRoomOptionsMenu={false}
                         viewingCall={false}
@@ -2557,7 +2557,7 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
         }
         const mainSplitContentClasses = classNames("mx_RoomView_body", mainSplitContentClassName);
 
-        let excludedRightPanelPhaseButtons = [RightPanelPhases.Timeline];
+        let excludedRightPanelPhaseButtons = [RightPanelPhases.Timeline, RightPanelPhases.ThreadPanel];
         let onAppsClick: (() => void) | null = this.onAppsClick;
         let onForgetClick: (() => void) | null = this.onForgetClick;
         let onSearchClick: (() => void) | null = this.onSearchClick;

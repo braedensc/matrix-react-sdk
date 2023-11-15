@@ -61,12 +61,7 @@ export default class GeneralRoomSettingsTab extends React.Component<IProps, ISta
     };
 
     public render(): React.ReactNode {
-        const client = this.context;
         const room = this.props.room;
-
-        const canSetAliases = true; // Previously, we arbitrarily only allowed admins to do this
-        const canSetCanonical = room.currentState.mayClientSendStateEvent("m.room.canonical_alias", client);
-        const canonicalAliasEv = room.currentState.getStateEvents("m.room.canonical_alias", "") ?? undefined;
 
         const urlPreviewSettings = SettingsStore.getValue(UIFeature.URLPreviews) ? (
             <UrlPreviewSettings room={room} />
@@ -75,7 +70,7 @@ export default class GeneralRoomSettingsTab extends React.Component<IProps, ISta
         let leaveSection;
         if (room.getMyMembership() === "join") {
             leaveSection = (
-                <SettingsSubsection heading={_t("action|leave_room")}>
+                <SettingsSubsection heading="">
                     <AccessibleButton kind="danger" onClick={this.onLeaveClick}>
                         {_t("action|leave_room")}
                     </AccessibleButton>
@@ -89,16 +84,7 @@ export default class GeneralRoomSettingsTab extends React.Component<IProps, ISta
                     <RoomProfileSettings roomId={room.roomId} />
                 </SettingsSection>
 
-                <SettingsSection heading={_t("room_settings|general|aliases_section")}>
-                    <AliasSettings
-                        roomId={room.roomId}
-                        canSetCanonicalAlias={canSetCanonical}
-                        canSetAliases={canSetAliases}
-                        canonicalAliasEvent={canonicalAliasEv}
-                    />
-                </SettingsSection>
-
-                <SettingsSection heading={_t("room_settings|general|other_section")}>
+                <SettingsSection heading="">
                     {urlPreviewSettings}
                     {leaveSection}
                 </SettingsSection>

@@ -74,16 +74,6 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
 
     private getTabs(): NonEmptyArray<Tab<UserTab>> {
         const tabs: Tab<UserTab>[] = [];
-
-        tabs.push(
-            new Tab(
-                UserTab.General,
-                _td("common|general"),
-                "mx_UserSettingsDialog_settingsIcon",
-                <GeneralUserSettingsTab closeSettingsFn={this.props.onFinished} />,
-                "UserSettingsGeneral",
-            ),
-        );
         tabs.push(
             new Tab(
                 UserTab.Appearance,
@@ -104,15 +94,6 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
         );
         tabs.push(
             new Tab(
-                UserTab.Preferences,
-                _td("common|preferences"),
-                "mx_UserSettingsDialog_preferencesIcon",
-                <PreferencesUserSettingsTab closeSettingsFn={this.props.onFinished} />,
-                "UserSettingsPreferences",
-            ),
-        );
-        tabs.push(
-            new Tab(
                 UserTab.Keyboard,
                 _td("settings|keyboard|title"),
                 "mx_UserSettingsDialog_keyboardIcon",
@@ -120,79 +101,51 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
                 "UserSettingsKeyboard",
             ),
         );
-        tabs.push(
-            new Tab(
-                UserTab.Sidebar,
-                _td("settings|sidebar|title"),
-                "mx_UserSettingsDialog_sidebarIcon",
-                <SidebarUserSettingsTab />,
-                "UserSettingsSidebar",
-            ),
-        );
-
-        if (SettingsStore.getValue(UIFeature.Voip)) {
-            tabs.push(
-                new Tab(
-                    UserTab.Voice,
-                    _td("settings|voip|title"),
-                    "mx_UserSettingsDialog_voiceIcon",
-                    <VoiceUserSettingsTab />,
-                    "UserSettingsVoiceVideo",
-                ),
-            );
-        }
-
-        tabs.push(
-            new Tab(
-                UserTab.Security,
-                _td("room_settings|security|title"),
-                "mx_UserSettingsDialog_securityIcon",
-                <SecurityUserSettingsTab closeSettingsFn={this.props.onFinished} />,
-                "UserSettingsSecurityPrivacy",
-            ),
-        );
-        tabs.push(
-            new Tab(
-                UserTab.SessionManager,
-                _td("settings|sessions|title"),
-                "mx_UserSettingsDialog_sessionsIcon",
-                <SessionManagerTab />,
-                // don't track with posthog while under construction
-                undefined,
-            ),
-        );
+        // if (SettingsStore.getValue(UIFeature.Voip)) {
+        //     tabs.push(
+        //         new Tab(
+        //             UserTab.Voice,
+        //             _td("settings|voip|title"),
+        //             "mx_UserSettingsDialog_voiceIcon",
+        //             <VoiceUserSettingsTab />,
+        //             "UserSettingsVoiceVideo",
+        //         ),
+        //     );
+        // }
         // Show the Labs tab if enabled or if there are any active betas
-        if (showLabsFlags() || SettingsStore.getFeatureSettingNames().some((k) => SettingsStore.getBetaInfo(k))) {
-            tabs.push(
-                new Tab(
-                    UserTab.Labs,
-                    _td("common|labs"),
-                    "mx_UserSettingsDialog_labsIcon",
-                    <LabsUserSettingsTab />,
-                    "UserSettingsLabs",
-                ),
-            );
-        }
-        if (this.state.mjolnirEnabled) {
-            tabs.push(
-                new Tab(
-                    UserTab.Mjolnir,
-                    _td("labs_mjolnir|title"),
-                    "mx_UserSettingsDialog_mjolnirIcon",
-                    <MjolnirUserSettingsTab />,
-                    "UserSettingMjolnir",
-                ),
-            );
-        }
-        tabs.push(
-            new Tab(
-                UserTab.Help,
-                _td("setting|help_about|title"),
-                "mx_UserSettingsDialog_helpIcon",
-                <HelpUserSettingsTab closeSettingsFn={() => this.props.onFinished()} />,
-                "UserSettingsHelpAbout",
-            ),
-        );
+        // if (showLabsFlags() || SettingsStore.getFeatureSettingNames().some((k) => SettingsStore.getBetaInfo(k))) {
+        // eslint-disable-next-line no-constant-condition
+        //     if (false) {
+        //     tabs.push(
+        //         new Tab(
+        //             UserTab.Labs,
+        //             _td("common|labs"),
+        //             "mx_UserSettingsDialog_labsIcon",
+        //             <LabsUserSettingsTab />,
+        //             "UserSettingsLabs",
+        //         ),
+        //     );
+        // }
+        // if (this.state.mjolnirEnabled) {
+        //     tabs.push(
+        //         new Tab(
+        //             UserTab.Mjolnir,
+        //             _td("labs_mjolnir|title"),
+        //             "mx_UserSettingsDialog_mjolnirIcon",
+        //             <MjolnirUserSettingsTab />,
+        //             "UserSettingMjolnir",
+        //         ),
+        //     );
+        // }
+        // tabs.push(
+        //     new Tab(
+        //         UserTab.Help,
+        //         _td("setting|help_about|title"),
+        //         "mx_UserSettingsDialog_helpIcon",
+        //         <HelpUserSettingsTab closeSettingsFn={() => this.props.onFinished()} />,
+        //         "UserSettingsHelpAbout",
+        //     ),
+        // );
 
         return tabs as NonEmptyArray<Tab<UserTab>>;
     }

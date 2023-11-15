@@ -1766,7 +1766,7 @@
         "title": "Reject invitation"
     },
     "report_content": {
-        "description": "Reporting this message will send its unique 'event ID' to the administrator of your homeserver. If messages in this room are encrypted, your homeserver administrator will not be able to read the message text or view any files or images.",
+        "description": "Reporting this message will send its unique 'event ID' to OnSolve.",
         "disagree": "Disagree",
         "error_create_room_moderation_bot": "Unable to create room with moderation bot",
         "hide_messages_from_user": "Check if you want to hide all current and future messages from this user.",

@@ -150,9 +150,11 @@ export default class CreateRoomDialog extends React.Component<IProps, IState> {
         if (this.state.topic) {
             createOpts.topic = this.state.topic;
         }
-        if (this.state.noFederate) {
-            createOpts.creation_content = { "m.federate": false };
-        }
+        // if (this.state.noFederate) {
+        //     createOpts.creation_content = { "m.federate": false };
+        // }
+        //TODO OnSolve: leave as false for now, so that users can only interact ith rooms on their homeserver Verify this is correct later
+        createOpts.creation_content = { "m.federate": false }
 
         opts.parentSpace = this.props.parentSpace;
         if (this.props.parentSpace && this.state.joinRule === JoinRule.Restricted) {
@@ -430,7 +432,8 @@ export default class CreateRoomDialog extends React.Component<IProps, IState> {
                         {visibilitySection}
                         {e2eeSection}
                         {aliasField}
-                        <details onToggle={this.onDetailsToggled} className="mx_CreateRoomDialog_details">
+                        {/* OnSolve All of below is hidden as we force federated to be false when saving up above */}
+                        {/* <details onToggle={this.onDetailsToggled} className="mx_CreateRoomDialog_details">
                             <summary className="mx_CreateRoomDialog_details_summary">
                                 {this.state.detailsOpen ? _t("action|hide_advanced") : _t("action|show_advanced")}
                             </summary>
@@ -442,7 +445,7 @@ export default class CreateRoomDialog extends React.Component<IProps, IState> {
                                 value={this.state.noFederate}
                             />
                             <p>{federateLabel}</p>
-                        </details>
+                        </details> */}
                     </div>
                 </form>
                 <DialogButtons

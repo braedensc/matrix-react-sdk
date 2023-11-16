@@ -270,7 +270,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
                                 <BetaPill />
                             </IconizedContextMenuOption>
                         )}
-                        <IconizedContextMenuOption
+                        {/* <IconizedContextMenuOption
                             label={_t("action|add_existing_room")}
                             iconClassName="mx_RoomList_iconAddExistingRoom"
                             onClick={(e) => {
@@ -281,7 +281,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
                             }}
                             disabled={!canAddRooms}
                             tooltip={canAddRooms ? undefined : _t("spaces|error_no_permission_add_room")}
-                        />
+                        /> */}
                     </>
                 ) : null}
             </IconizedContextMenuOptionList>

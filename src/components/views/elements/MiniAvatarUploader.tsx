@@ -108,15 +108,15 @@ const MiniAvatarUploader: React.FC<IProps> = ({
                     {busy ? <Spinner w={20} h={20} /> : <div className="mx_MiniAvatarUploader_cameraIcon" />}
                 </div>
 
-                <div
+                {/* <div
                     className={classNames("mx_Tooltip", {
                         mx_Tooltip_visible: visible,
                         mx_Tooltip_invisible: !visible,
                     })}
-                >
-                    <div className="mx_Tooltip_chevron" />
-                    {label}
-                </div>
+                > */}
+                    {/* <div className="mx_Tooltip_chevron" />
+                    {label} */}
+                {/* </div> */}
             </AccessibleButton>
         </React.Fragment>
     );

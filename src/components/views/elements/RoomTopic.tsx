@@ -31,6 +31,7 @@ import AccessibleButton from "./AccessibleButton";
 import TooltipTarget from "./TooltipTarget";
 import { Linkify, topicToHtml } from "../../../HtmlUtils";
 import { tryTransformPermalinkToLocalHref } from "../../../utils/permalinks/Permalinks";
+import { ConsoleLogger } from "../../../rageshake/rageshake";
 
 interface IProps extends React.HTMLProps<HTMLDivElement> {
     room: Room;
@@ -72,6 +73,7 @@ export default function RoomTopic({ room, ...props }: IProps): JSX.Element {
 
     useDispatcher(dis, (payload) => {
         if (payload.action === Action.ShowRoomTopic) {
+            console.log('edit topic', room)
             const canSetTopic = room.currentState.maySendStateEvent(EventType.RoomTopic, client.getSafeUserId());
             const body = topicToHtml(topic?.text, topic?.html, ref, true);
 
@@ -113,17 +115,20 @@ export default function RoomTopic({ room, ...props }: IProps): JSX.Element {
     const className = classNames(props.className, "mx_RoomTopic");
 
     return (
-        <TooltipTarget
-            {...props}
-            ref={ref}
-            onClick={onClick}
-            dir="auto"
-            tooltipTargetClassName={className}
-            label={_t("room|read_topic")}
-            alignment={Alignment.Bottom}
-            ignoreHover={ignoreHover}
-        >
-            <Linkify>{body}</Linkify>
-        </TooltipTarget>
+        // <TooltipTarget
+        //     {...props}
+        //     ref={ref}
+        //     onClick={onClick}
+        //     dir="auto"
+        //     tooltipTargetClassName={className}
+        //     label={_t("room|read_topic")}
+        //     alignment={Alignment.Bottom}
+        //     ignoreHover={ignoreHover}
+        // >
+        //     <Linkify>{body}</Linkify>
+        // </TooltipTarget>
+        <div>
+        {body }
+        </div>
     );
 }

@@ -45,10 +45,7 @@ const JoinRuleDropdown: React.FC<IProps> = ({
     const options = [
         <div key={JoinRule.Invite} className="mx_JoinRuleDropdown_invite">
             {labelInvite}
-        </div>,
-        <div key={JoinRule.Public} className="mx_JoinRuleDropdown_public">
-            {labelPublic}
-        </div>,
+        </div>
     ] as NonEmptyArray<ReactElement & { key: string }>;
 
     if (labelKnock) {

@@ -244,18 +244,18 @@ const SpaceLanding: React.FC<{ space: Room }> = ({ space }) => {
         addRoomButton = <SpaceLandingAddButton space={space} />;
     }
 
-    let settingsButton;
-    if (shouldShowSpaceSettings(space)) {
-        settingsButton = (
-            <AccessibleTooltipButton
-                className="mx_SpaceRoomView_landing_settingsButton"
-                onClick={() => {
-                    showSpaceSettings(space);
-                }}
-                title={_t("common|settings")}
-            />
-        );
-    }
+     let settingsButton;
+    // if (shouldShowSpaceSettings(space)) {
+    //     settingsButton = (
+    //         <AccessibleTooltipButton
+    //             className="mx_SpaceRoomView_landing_settingsButton"
+    //             onClick={() => {
+    //                 showSpaceSettings(space);
+    //             }}
+    //             title={_t("common|settings")}
+    //         />
+    //     );
+    // }
 
     const onMembersClick = (): void => {
         RightPanelStore.instance.setCard({ phase: RightPanelPhases.SpaceMemberList });
@@ -284,7 +284,7 @@ const SpaceLanding: React.FC<{ space: Room }> = ({ space }) => {
                         onClick={isShowingMembers ? undefined : onMembersClick}
                     />
                     {inviteButton}
-                    {settingsButton}
+                    {/* {settingsButton} */}
                 </div>
             </div>
             <RoomTopic room={space} className="mx_SpaceRoomView_landing_topic" />

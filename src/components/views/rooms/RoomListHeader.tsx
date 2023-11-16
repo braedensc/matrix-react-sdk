@@ -410,13 +410,16 @@ const RoomListHeader: React.FC<IProps> = ({ onVisibilityChange }) => {
 
     return (
         <div className="mx_RoomListHeader">
-            {contextMenuButton}
+            {/* {contextMenuButton} */}
+            <div className="mx_RoomListTitle">
+            { spaceName ?? activeSpace?.name}
+            </div>
             {pendingActionSummary ? (
                 <TooltipTarget label={pendingActionSummary}>
                     <InlineSpinner />
                 </TooltipTarget>
             ) : null}
-            {canShowPlusMenu && (
+            {/* {canShowPlusMenu && (
                 <ContextMenuTooltipButton
                     inputRef={plusMenuHandle}
                     onClick={openPlusMenu}
@@ -424,7 +427,7 @@ const RoomListHeader: React.FC<IProps> = ({ onVisibilityChange }) => {
                     className="mx_RoomListHeader_plusButton"
                     title={_t("action|add")}
                 />
-            )}
+            )} */}
 
             {contextMenu}
         </div>

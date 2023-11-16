@@ -741,21 +741,21 @@ console.log('addbuttons', this.props.additionalButtons)
             </RoomName>
         );
 
-        if (this.props.enableRoomOptionsMenu && shouldShowComponent(UIComponent.RoomOptionsMenu)) {
-            return (
-                <ContextMenuTooltipButton
-                    className="mx_LegacyRoomHeader_name"
-                    onClick={this.onContextMenuOpenClick}
-                    isExpanded={!!this.state.contextMenuPosition}
-                    title={_t("room|context_menu|title")}
-                    alignment={Alignment.Bottom}
-                >
-                    {roomName}
-                    {this.props.room && <div className="mx_LegacyRoomHeader_chevron" />}
-                    {contextMenu}
-                </ContextMenuTooltipButton>
-            );
-        }
+        // if (this.props.enableRoomOptionsMenu && shouldShowComponent(UIComponent.RoomOptionsMenu)) {
+        //     return (
+        //         <ContextMenuTooltipButton
+        //             className="mx_LegacyRoomHeader_name"
+        //             onClick={this.onContextMenuOpenClick}
+        //             isExpanded={!!this.state.contextMenuPosition}
+        //             title={_t("room|context_menu|title")}
+        //             alignment={Alignment.Bottom}
+        //         >
+        //             {roomName}
+        //             {this.props.room && <div className="mx_LegacyRoomHeader_chevron" />}
+        //             {contextMenu}
+        //         </ContextMenuTooltipButton>
+        //     );
+        // }
 
         return <div className="mx_LegacyRoomHeader_name mx_LegacyRoomHeader_name--textonly">{roomName}</div>;
     }
@@ -856,7 +856,9 @@ console.log('addbuttons', this.props.additionalButtons)
                     {searchStatus}
                     {topicElement}
                     {betaPill}
+                    <div className="mx_LegacyRoomHeader_additionButtonContainer">
                     {buttons}
+                    </div>
                 </div>
                 {!isVideoRoom && <RoomCallBanner roomId={this.props.room.roomId} />}
                 <RoomLiveShareWarning roomId={this.props.room.roomId} />

@@ -361,6 +361,9 @@ export default class SettingsStore {
 
         const setting = SETTINGS[settingName];
         const levelOrder = getLevelOrder(setting);
+        console.log('settings name get', settingName)
+        console.log('settings found', setting)
+        console.log('settings level order', levelOrder)
 
         return SettingsStore.getValueAt(levelOrder[0], settingName, roomId, false, excludeDefault);
     }

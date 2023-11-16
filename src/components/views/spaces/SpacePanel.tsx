@@ -142,7 +142,7 @@ const getHomeNotificationState = (): NotificationState => {
         : SpaceStore.instance.getNotificationState(MetaSpace.Home);
 };
 
-const HomeButton: React.FC<MetaSpaceButtonProps> = ({ selected, isPanelCollapsed }) => {
+const HomeButton: React.FC<MetaSpaceButtonProps> | null = ({ selected, isPanelCollapsed }) => {
     const allRoomsInHome = useEventEmitterState(SpaceStore.instance, UPDATE_HOME_BEHAVIOUR, () => {
         return SpaceStore.instance.allRoomsInHome;
     });
@@ -152,6 +152,12 @@ const HomeButton: React.FC<MetaSpaceButtonProps> = ({ selected, isPanelCollapsed
     }, []);
     useEffect(updateNotificationState, [updateNotificationState, allRoomsInHome]);
     useEventEmitter(RoomNotificationStateStore.instance, UPDATE_STATUS_INDICATOR, updateNotificationState);
+
+    const enabledMetaspaces = SettingsStore.getValue("Spaces.enabledMetaSpaces");
+    console.log('enabled spaces', enabledMetaspaces)
+    if (!enabledMetaspaces['home-space']) {
+        return null;
+    }
 
     return (
         <MetaSpaceButton

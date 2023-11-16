@@ -1000,7 +1000,7 @@ export const SETTINGS: { [setting: string]: ISetting } = {
         default: false,
     },
     "Spaces.enabledMetaSpaces": {
-        supportedLevels: LEVELS_ACCOUNT_SETTINGS,
+        supportedLevels: [SettingLevel.CONFIG],
         default: {
             [MetaSpace.Home]: true,
         },

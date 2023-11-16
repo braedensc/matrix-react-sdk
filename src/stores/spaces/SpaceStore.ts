@@ -1286,6 +1286,7 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
                     }
 
                     case "Spaces.enabledMetaSpaces": {
+                        console.log('spaces updated. Old value: ', enabledMetaSpaces)
                         const newValue = SettingsStore.getValue("Spaces.enabledMetaSpaces");
                         const enabledMetaSpaces = metaSpaceOrder.filter((k) => newValue[k]);
                         if (arrayHasDiff(this._enabledMetaSpaces, enabledMetaSpaces)) {

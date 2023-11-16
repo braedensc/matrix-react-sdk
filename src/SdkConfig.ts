@@ -108,6 +108,7 @@ export default class SdkConfig {
         SdkConfig.fallback = new SnakedObject(i);
 
         // For debugging purposes
+        console.log('setting sdkconfig', i)
         window.mxReactSdkConfig = i;
     }
 

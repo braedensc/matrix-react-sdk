@@ -1002,7 +1002,7 @@ export const SETTINGS: { [setting: string]: ISetting } = {
     "Spaces.enabledMetaSpaces": {
         supportedLevels: [SettingLevel.CONFIG],
         default: {
-            [MetaSpace.Home]: true,
+            [MetaSpace.Home]: false,
         },
     },
     "Spaces.showPeopleInSpace": {

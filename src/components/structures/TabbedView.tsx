@@ -173,7 +173,7 @@ export default class TabbedView<T extends string> extends React.Component<IProps
                             aria-orientation={this.props.tabLocation == TabLocation.LEFT ? "vertical" : "horizontal"}
                             onKeyDown={onKeyDownHandler}
                         >
-                            {labels}
+                            {labels.length > 1 ? labels : null}
                         </ul>
                     )}
                 </RovingTabIndexProvider>

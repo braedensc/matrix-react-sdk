@@ -52,6 +52,7 @@ import { Icon as LiveIcon } from "../../../res/img/compound/live-8px.svg";
 import { VoiceBroadcastRecording, VoiceBroadcastRecordingsStoreEvent } from "../../voice-broadcast";
 import { SDKContext } from "../../contexts/SDKContext";
 import { shouldShowFeedback } from "../../utils/Feedback";
+import UIStore from "../../stores/UIStore";
 
 interface IProps {
     isPanelCollapsed: boolean;
@@ -347,18 +348,20 @@ export default class UserMenu extends React.Component<IProps, IState> {
         let primaryOptionList = (
             <IconizedContextMenuOptionList>
                 {homeButton}
-                <IconizedContextMenuOption
+                {UIStore.instance.windowWidth > 950 && <IconizedContextMenuOption
                     iconClassName="mx_UserMenu_iconBell"
                     label={_t("notifications|enable_prompt_toast_title")}
                     onClick={(e) => this.onSettingsOpen(e, UserTab.Notifications)}
                 />
+    }
                 {feedbackButton}
-                <IconizedContextMenuOption
+                 <IconizedContextMenuOption
                     className="mx_IconizedContextMenu_option_red"
                     iconClassName="mx_UserMenu_iconSignOut"
                     label={_t("action|sign_out")}
                     onClick={this.onSignOutClick}
                 />
+               
             </IconizedContextMenuOptionList>
         );
 

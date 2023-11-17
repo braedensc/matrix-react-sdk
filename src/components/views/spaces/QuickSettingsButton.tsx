@@ -36,6 +36,7 @@ import { Icon as FavoriteIcon } from "../../../../res/img/element-icons/roomlist
 import Modal from "../../../Modal";
 import DevtoolsDialog from "../dialogs/DevtoolsDialog";
 import { SdkContextClass } from "../../../contexts/SDKContext";
+import UIStore from "../../../stores/UIStore";
 
 const QuickSettingsButton: React.FC<{
     isPanelCollapsed: boolean;
@@ -50,7 +51,9 @@ const QuickSettingsButton: React.FC<{
 
     let contextMenu: JSX.Element | undefined;
     if (menuDisplayed && handle.current) {
-        contextMenu = (
+
+        contextMenu =  UIStore.instance.windowWidth < 950 ?
+       (
             <ContextMenu
                 {...alwaysAboveRightOf(handle.current.getBoundingClientRect(), ChevronFace.None, 16)}
                 wrapperClassName="mx_QuickSettingsButton_ContextMenuWrapper"
@@ -58,73 +61,49 @@ const QuickSettingsButton: React.FC<{
                 managed={false}
                 focusLock={true}
             >
-                <h2>{_t("quick_settings|title")}</h2>
-
-                <AccessibleButton
-                    onClick={() => {
-                        closeMenu();
-                        defaultDispatcher.dispatch({ action: Action.ViewUserSettings });
-                    }}
-                    kind="primary_outline"
+                <QuickThemeSwitcher requestClose={closeMenu} />
+            </ContextMenu>
+        ) : 
+            (
+                <ContextMenu
+                    {...alwaysAboveRightOf(handle.current.getBoundingClientRect(), ChevronFace.None, 16)}
+                    wrapperClassName="mx_QuickSettingsButton_ContextMenuWrapper"
+                    onFinished={closeMenu}
+                    managed={false}
+                    focusLock={true}
                 >
-                    {_t("quick_settings|all_settings")}
-                </AccessibleButton>
-
-                {currentRoomId && developerModeEnabled && (
+                    {/* <h2>{_t("quick_settings|title")}</h2> */}
+    
                     <AccessibleButton
                         onClick={() => {
                             closeMenu();
-                            Modal.createDialog(
-                                DevtoolsDialog,
-                                {
-                                    roomId: currentRoomId,
-                                },
-                                "mx_DevtoolsDialog_wrapper",
-                            );
+                            defaultDispatcher.dispatch({ action: Action.ViewUserSettings });
                         }}
-                        kind="danger_outline"
+                        kind="primary_outline"
                     >
-                        {_t("devtools|title")}
+                        {_t("quick_settings|all_settings")}
                     </AccessibleButton>
-                )}
-
-                <h4 className="mx_QuickSettingsButton_pinToSidebarHeading">
-                    <PinUprightIcon className="mx_QuickSettingsButton_icon" />
-                    {_t("quick_settings|metaspace_section")}
-                </h4>
-
-                <StyledCheckbox
-                    className="mx_QuickSettingsButton_favouritesCheckbox"
-                    checked={!!favouritesEnabled}
-                    onChange={onMetaSpaceChangeFactory(MetaSpace.Favourites, "WebQuickSettingsPinToSidebarCheckbox")}
-                >
-                    <FavoriteIcon className="mx_QuickSettingsButton_icon" />
-                    {_t("common|favourites")}
-                </StyledCheckbox>
-                <StyledCheckbox
-                    className="mx_QuickSettingsButton_peopleCheckbox"
-                    checked={!!peopleEnabled}
-                    onChange={onMetaSpaceChangeFactory(MetaSpace.People, "WebQuickSettingsPinToSidebarCheckbox")}
-                >
-                    <MembersIcon className="mx_QuickSettingsButton_icon" />
-                    {_t("common|people")}
-                </StyledCheckbox>
-                <AccessibleButton
-                    className="mx_QuickSettingsButton_moreOptionsButton"
-                    onClick={() => {
-                        closeMenu();
-                        defaultDispatcher.dispatch({
-                            action: Action.ViewUserSettings,
-                            initialTabId: UserTab.Sidebar,
-                        });
-                    }}
-                >
-                    <EllipsisIcon className="mx_QuickSettingsButton_icon" />
-                    {_t("quick_settings|sidebar_settings")}
-                </AccessibleButton>
-
-                <QuickThemeSwitcher requestClose={closeMenu} />
-            </ContextMenu>
+    
+                    {currentRoomId && developerModeEnabled && (
+                        <AccessibleButton
+                            onClick={() => {
+                                closeMenu();
+                                Modal.createDialog(
+                                    DevtoolsDialog,
+                                    {
+                                        roomId: currentRoomId,
+                                    },
+                                    "mx_DevtoolsDialog_wrapper",
+                                );
+                            }}
+                            kind="danger_outline"
+                        >
+                            {_t("devtools|title")}
+                        </AccessibleButton>
+                    )}
+    
+                    <QuickThemeSwitcher requestClose={closeMenu} />
+                </ContextMenu>
         );
     }
 

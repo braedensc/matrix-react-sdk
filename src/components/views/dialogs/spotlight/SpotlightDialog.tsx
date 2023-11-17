@@ -1215,23 +1215,6 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
 
     return (
         <>
-            <div id="mx_SpotlightDialog_keyboardPrompt">
-                {_t(
-                    "spotlight_dialog|keyboard_scroll_hint",
-                    {},
-                    {
-                        arrows: () => (
-                            <>
-                                <kbd>↓</kbd>
-                                <kbd>↑</kbd>
-                                {!filter !== null && !query && <kbd>←</kbd>}
-                                {!filter !== null && !query && <kbd>→</kbd>}
-                            </>
-                        ),
-                    },
-                )}
-            </div>
-
             <BaseDialog
                 className="mx_SpotlightDialog"
                 onFinished={onFinished}

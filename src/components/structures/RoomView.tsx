@@ -2608,8 +2608,59 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                     </IconButton>
                 </Tooltip>
             );
-
-        return (
+    return UIStore.instance.windowWidth < 950 ?
+       (
+            <RoomContext.Provider value={this.state}>
+                <main
+                    className={mainClasses}
+                    ref={this.roomView}
+                    onKeyDown={this.onReactKeyDown}
+                    data-room-header={roomHeaderType}
+                >
+                    {showChatEffects && this.roomView.current && (
+                        <EffectsOverlay roomWidth={this.roomView.current.offsetWidth} />
+                    )}
+                    <ErrorBoundary>
+                            <div
+                                className={mainSplitContentClasses}
+                                ref={this.roomViewBody}
+                                data-layout={this.state.layout}
+                            >
+                                {rightPanel && rightPanel}
+                                {!rightPanel && (SettingsStore.getValue("feature_new_room_decoration_ui") ? (
+                                    <RoomHeader
+                                        room={this.state.room}
+                                        additionalButtons={this.state.viewRoomOpts.buttons}
+                                        minimizeLeftButton={UIStore.instance.windowWidth < 950 ? mobileBackButtonLeft : undefined}
+                                    />
+                                ) : (
+                                    <LegacyRoomHeader
+                                        room={this.state.room}
+                                        searchInfo={this.state.search}
+                                        oobData={this.props.oobData}
+                                        inRoom={myMembership === "join"}
+                                        onSearchClick={onSearchClick}
+                                        onInviteClick={onInviteClick}
+                                        onForgetClick={showForgetButton ? onForgetClick : null}
+                                        e2eStatus={this.state.e2eStatus}
+                                        onAppsClick={this.state.hasPinnedWidgets ? onAppsClick : null}
+                                        appsShown={this.state.showApps}
+                                        excludedRightPanelPhaseButtons={excludedRightPanelPhaseButtons}
+                                        showButtons={!this.viewsLocalRoom}
+                                        enableRoomOptionsMenu={!this.viewsLocalRoom}
+                                        viewingCall={viewingCall}
+                                        activeCall={this.state.activeCall}
+                                        additionalButtons={this.state.viewRoomOpts.buttons}
+                                        minimizeLeftButton={UIStore.instance.windowWidth < 950 ? mobileBackButtonLeft : undefined}
+                                    />
+                                ))}
+                                {!rightPanel && mainSplitBody}
+                            </div>
+                    </ErrorBoundary>
+                </main>
+            </RoomContext.Provider>
+        ) :
+        (
             <RoomContext.Provider value={this.state}>
                 <main
                     className={mainClasses}

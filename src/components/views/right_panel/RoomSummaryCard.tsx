@@ -388,9 +388,9 @@ const RoomSummaryCard: React.FC<IProps> = ({ room, permalinkCreator, onClose, on
                     </Button>
                 )} */}
 
-                <Button className="mx_RoomSummaryCard_icon_settings" onClick={onRoomSettingsClick}>
+                {UIStore.instance.windowWidth > 950 && <Button className="mx_RoomSummaryCard_icon_settings" onClick={onRoomSettingsClick}>
                     {_t("right_panel|settings_button")}
-                </Button>
+                </Button>}
             </Group>
 
             {/* {SettingsStore.getValue(UIFeature.Widgets) &&

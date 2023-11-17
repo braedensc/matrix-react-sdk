@@ -17,7 +17,7 @@ limitations under the License.
 
 import React from "react";
 
-import TabbedView, { Tab } from "../../structures/TabbedView";
+import TabbedView, { Tab, TabLocation } from "../../structures/TabbedView";
 import { _t, _td } from "../../../languageHandler";
 import GeneralUserSettingsTab from "../settings/tabs/user/GeneralUserSettingsTab";
 import SettingsStore, { CallbackFn } from "../../../settings/SettingsStore";
@@ -37,6 +37,7 @@ import SessionManagerTab from "../settings/tabs/user/SessionManagerTab";
 import { UserTab } from "./UserTab";
 import { NonEmptyArray } from "../../../@types/common";
 import { SDKContext, SdkContextClass } from "../../../contexts/SDKContext";
+import UIStore from "../../../stores/UIStore";
 
 interface IProps {
     initialTabId?: UserTab;
@@ -83,7 +84,7 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
                 "UserSettingsAppearance",
             ),
         );
-        tabs.push(
+      tabs.push(
             new Tab(
                 UserTab.Notifications,
                 _td("notifications|enable_prompt_toast_title"),
@@ -167,6 +168,7 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
                             tabs={this.getTabs()}
                             initialTabId={this.props.initialTabId}
                             screenName="UserSettings"
+                            tabLocation={UIStore.instance.windowWidth > 950 ? TabLocation.LEFT : TabLocation.TOP}
                         />
                     </div>
                 </BaseDialog>

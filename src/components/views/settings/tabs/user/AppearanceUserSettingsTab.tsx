@@ -34,6 +34,7 @@ import SettingsTab from "../SettingsTab";
 import { SettingsSection } from "../../shared/SettingsSection";
 import SettingsSubsection, { SettingsSubsectionText } from "../../shared/SettingsSubsection";
 import MatrixClientContext from "../../../../../contexts/MatrixClientContext";
+import UIStore from "../../../../../stores/UIStore";
 
 interface IProps {}
 
@@ -147,8 +148,8 @@ export default class AppearanceUserSettingsTab extends React.Component<IProps, I
         const brand = SdkConfig.get().brand;
 
         return (
-            <SettingsTab data-testid="mx_AppearanceUserSettingsTab">
-                <SettingsSection heading={_t("settings|appearance|heading")}>
+             <SettingsTab data-testid="mx_AppearanceUserSettingsTab">
+                <SettingsSection heading={ _t("settings|appearance|heading")}>
                     <SettingsSubsectionText>{_t("settings|appearance|subheading", { brand })}</SettingsSubsectionText>
                     <ThemeChoicePanel />
                     <LayoutSwitcher

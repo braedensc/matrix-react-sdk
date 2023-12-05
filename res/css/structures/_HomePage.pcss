@@ -33,7 +33,7 @@ limitations under the License.
     }
 
     img {
-        height: 48px;
+        height: auto;
     }
 
     h1 {
@@ -61,48 +61,29 @@ limitations under the License.
         width: fit-content;
 
         .mx_AccessibleButton {
-            padding: 73px 8px 15px; /* top: 20px top padding + 40px icon + 13px margin */
-
+            padding: 0px;
             width: 160px;
-            min-height: 132px;
+            height: 160px;
             margin: 20px;
             position: relative;
             display: inline-block;
             border-radius: 8px;
             vertical-align: top;
             word-break: break-word;
+            -webkit-box-sizing: border-box;
             box-sizing: border-box;
-
             font-weight: var(--cpd-font-weight-semibold);
-            font-size: $font-15px;
-            line-height: $font-20px;
-            color: #fff; /* on all themes */
-            background-color: $accent;
+            font-size: 0.9375rem;
+            line-height: 1.25rem;
+            border: aliceblue;
+            border-style: solid;
 
-            &::before {
-                top: 20px;
-                left: 60px; /* (160px-40px)/2 */
-                width: 40px;
-                height: 40px;
+            > div {
+                margin-top: 12px;
+            }   
 
-                content: "";
-                position: absolute;
-                background-color: #fff; /* on all themes */
-                mask-repeat: no-repeat;
-                mask-size: contain;
-            }
 
-            &.mx_HomePage_button_sendDm::before {
-                mask-image: url("$(res)/img/element-icons/feedback.svg");
-            }
 
-            &.mx_HomePage_button_explore::before {
-                mask-image: url("$(res)/img/element-icons/roomlist/explore.svg");
-            }
-
-            &.mx_HomePage_button_createGroup::before {
-                mask-image: url("$(res)/img/element-icons/group-members.svg");
-            }
         }
     }
 }

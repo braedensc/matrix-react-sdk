@@ -58,7 +58,7 @@ interface IButtonProps extends Omit<ComponentProps<typeof AccessibleTooltipButto
     notificationState?: NotificationState;
     isNarrow?: boolean;
     size: string;
-    innerRef?: RefObject<HTMLElement>;
+    innerRef?: RefObject<HTMLElement> | LegacyRef<HTMLLIElement>;
     ContextMenuComponent?: ComponentType<ComponentProps<typeof SpaceContextMenu>>;
     onClick?(ev?: ButtonEvent): void;
 }

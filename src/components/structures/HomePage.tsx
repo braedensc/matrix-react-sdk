@@ -16,36 +16,38 @@ limitations under the License.
 
 import * as React from "react";
 import { useContext, useState } from "react";
+import { Room } from "matrix-js-sdk/src/matrix";
 
 import AutoHideScrollbar from "./AutoHideScrollbar";
 import { getHomePageUrl } from "../../utils/pages";
-import { _tDom } from "../../languageHandler";
+import { _t, _tDom } from "../../languageHandler";
 import SdkConfig from "../../SdkConfig";
-import dis from "../../dispatcher/dispatcher";
-import { Action } from "../../dispatcher/actions";
 import BaseAvatar from "../views/avatars/BaseAvatar";
 import { OwnProfileStore } from "../../stores/OwnProfileStore";
-import AccessibleButton, { ButtonEvent } from "../views/elements/AccessibleButton";
 import { UPDATE_EVENT } from "../../stores/AsyncStore";
-import { useEventEmitter } from "../../hooks/useEventEmitter";
+import { useEventEmitter, useEventEmitterState } from "../../hooks/useEventEmitter";
 import MatrixClientContext, { useMatrixClientContext } from "../../contexts/MatrixClientContext";
 import MiniAvatarUploader, { AVATAR_SIZE } from "../views/elements/MiniAvatarUploader";
 import PosthogTrackers from "../../PosthogTrackers";
 import EmbeddedPage from "./EmbeddedPage";
+import { SpaceButton } from "../views/spaces/SpaceTreeLevel";
+import { MetaSpace, SpaceKey, UPDATE_INVITED_SPACES, UPDATE_TOP_LEVEL_SPACES, UPDATE_SELECTED_SPACE } from "../../stores/spaces";
+import SpaceStore from "../../stores/spaces/SpaceStore";
 
-const onClickSendDm = (ev: ButtonEvent): void => {
-    PosthogTrackers.trackInteraction("WebHomeCreateChatButton", ev);
-    dis.dispatch({ action: "view_create_chat" });
-};
 
-const onClickExplore = (ev: ButtonEvent): void => {
-    PosthogTrackers.trackInteraction("WebHomeExploreRoomsButton", ev);
-    dis.fire(Action.ViewRoomDirectory);
-};
-
-const onClickNewRoom = (ev: ButtonEvent): void => {
-    PosthogTrackers.trackInteraction("WebHomeCreateRoomButton", ev);
-    dis.dispatch({ action: "view_create_room" });
+const useSpaces = (): [Room[], MetaSpace[], Room[], SpaceKey] => {
+    const invites = useEventEmitterState<Room[]>(SpaceStore.instance, UPDATE_INVITED_SPACES, () => {
+        return SpaceStore.instance.invitedSpaces;
+    });
+    const [metaSpaces, actualSpaces] = useEventEmitterState<[MetaSpace[], Room[]]>(
+        SpaceStore.instance,
+        UPDATE_TOP_LEVEL_SPACES,
+        () => [SpaceStore.instance.enabledMetaSpaces, SpaceStore.instance.spacePanelSpaces],
+    );
+    const activeSpace = useEventEmitterState<SpaceKey>(SpaceStore.instance, UPDATE_SELECTED_SPACE, () => {
+        return SpaceStore.instance.activeSpace;
+    });
+    return [invites, metaSpaces, actualSpaces, activeSpace];
 };
 
 interface IProps {
@@ -98,6 +100,7 @@ const HomePage: React.FC<IProps> = ({ justRegistered = false }) => {
     const cli = useMatrixClientContext();
     const config = SdkConfig.get();
     const pageUrl = getHomePageUrl(config, cli);
+    const [invites, metaSpaces, actualSpaces, activeSpace] = useSpaces();
 
     if (pageUrl) {
         return <EmbeddedPage className="mx_HomePage" url={pageUrl} scrollbar={true} />;
@@ -124,15 +127,15 @@ const HomePage: React.FC<IProps> = ({ justRegistered = false }) => {
             <div className="mx_HomePage_default_wrapper">
                 {introSection}
                 <div className="mx_HomePage_default_buttons">
-                    <AccessibleButton onClick={onClickSendDm} className="mx_HomePage_button_sendDm">
-                        {_tDom("onboarding|send_dm")}
-                    </AccessibleButton>
-                    <AccessibleButton onClick={onClickExplore} className="mx_HomePage_button_explore">
-                        {_tDom("onboarding|explore_rooms")}
-                    </AccessibleButton>
-                    <AccessibleButton onClick={onClickNewRoom} className="mx_HomePage_button_createGroup">
-                        {_tDom("onboarding|create_room")}
-                    </AccessibleButton>
+                    {actualSpaces.map((s, i) => (
+                   <SpaceButton
+                        space={s}
+                        className="mx_HomePage_button_explore"
+                        key={s.roomId}           
+                        label={s.name}
+                        isNarrow={false}
+                        size="96px" />
+                ))}
                 </div>
             </div>
         </AutoHideScrollbar>

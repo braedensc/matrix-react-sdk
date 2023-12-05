@@ -987,7 +987,6 @@ export default class MatrixChat extends React.PureComponent<IProps, IState> {
     // switch view to the given room
     private async viewRoom(roomInfo: ViewRoomPayload): Promise<void> {
         this.focusComposer = true;
-        console.log('switching', roomInfo)
 
         if (roomInfo.room_alias) {
             logger.log(`Switching to room alias ${roomInfo.room_alias} at event ${roomInfo.event_id}`);

@@ -671,7 +671,6 @@ export default class RoomHeader extends React.Component<IProps, IState> {
                 );
             }
         }
-console.log('addbuttons', this.props.additionalButtons)
         return (
             <>
                 {this.props.additionalButtons?.map((props) => {

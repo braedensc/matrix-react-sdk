@@ -127,7 +127,7 @@ export default function RoomTopic({ room, ...props }: IProps): JSX.Element {
         // >
         //     <Linkify>{body}</Linkify>
         // </TooltipTarget>
-        <div>
+        <div className={"mx_RoomTopic_text"}>
         {body }
         </div>
     );

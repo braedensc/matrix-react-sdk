@@ -115,7 +115,7 @@ limitations under the License.
 
 
 .mx_LeftPanel {
-    background-color: $roomlist-bg-color;
+    background-color: rgba(55,119,188,.5);
 
     /* Create a row-based flexbox for the space panel and the room list */
     display: flex;
@@ -127,12 +127,15 @@ limitations under the License.
     /* Note: The 'room list' in this context is actually everything that isn't the tag */
     /* panel, such as the menu options, breadcrumbs, filtering, etc */
     .mx_LeftPanel_roomListContainer {
-        background-color: $roomlist-bg-color;
+        background-color: #ffffff;
         flex: 1 0 0;
         min-width: 0;
         /* Create another flexbox (this time a column) for the room list components */
         display: flex;
         flex-direction: column;
+        border: 3px solid rgba(55,119,188,.5);
+        border-left: none;
+        border-radius: 6px;
 
         .mx_LeftPanel_userHeader {
             /* 12px top, 12px sides, 20px bottom (using 13px bottom to account
@@ -255,6 +258,19 @@ limitations under the License.
           .mx_RoomListTitle {
             font-weight: bold;
             margin-left: 12px;
+            font-weight: bold;
+            height: 28px;
+            font-weight: 600;
+            background-color: rgba(55,119,188,.1);
+            border: 1px solid transparent;
+            display: flex;
+            font-size: 0.8rem;
+            border-radius: 1rem;
+            height: 22px;
+            padding: 3px;
+            font-weight: 600;
+            align-items: center;
+            color: #3777bc;
         }
 
         .mx_LeftPanel_roomListWrapper {

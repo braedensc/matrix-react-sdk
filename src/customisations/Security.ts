@@ -78,5 +78,5 @@ export interface ISecurityCustomisations {
 // A real customisation module will define and export one or more of the
 // customisation points that make up `ISecurityCustomisations`.
 export default {
-    SHOW_ENCRYPTION_SETUP_UI: true,
+    SHOW_ENCRYPTION_SETUP_UI: false,
 } as ISecurityCustomisations;

@@ -24,7 +24,7 @@ limitations under the License.
 .mx_LegacyRoomHeader {
     flex: 0 0 50px;
     border-bottom: 1px solid $primary-hairline-color;
-    background-color: $background;
+    background-color: #3777bc;
 
     .mx_LegacyRoomHeader_icon {
         height: 12px;
@@ -94,6 +94,7 @@ limitations under the License.
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        color: #ffffff;
     }
 
     .mx_LegacyRoomHeader_chevron {
@@ -136,6 +137,10 @@ limitations under the License.
 .mx_RoomTopic {
     position: relative;
     cursor: pointer;
+}
+
+.mx_RoomTopic_text {
+    color: lightgray;
 }
 
 
@@ -189,7 +194,7 @@ limitations under the License.
         left: 4px; /* center with parent of 32px */
         height: 24px;
         width: 24px;
-        background-color: $icon-button-color;
+        background-color: #ffffff;
         mask-repeat: no-repeat;
         mask-size: contain;
     }

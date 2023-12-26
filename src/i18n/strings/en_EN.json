@@ -3042,7 +3042,7 @@
         "suggested": "Suggested",
         "suggested_tooltip": "This room is suggested as a good one to join",
         "title_when_query_available": "Results",
-        "title_when_query_unavailable": "Rooms and spaces",
+        "title_when_query_unavailable": "Rooms",
         "unmark_suggested": "Mark as not suggested",
         "user_lacks_permission": "You don't have permission"
     },

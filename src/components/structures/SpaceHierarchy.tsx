@@ -255,7 +255,7 @@ const Tile: React.FC<ITileProps> = ({
                 <div className="mx_SpaceHierarchy_roomTile_name">
                     {name}
                     {joinedSection}
-                    {suggestedSection}
+                    {/* {suggestedSection} */}
                 </div>
                 <div className="mx_SpaceHierarchy_roomTile_info">
                     {description}
@@ -715,7 +715,7 @@ const ManageButtons: React.FC<IManageButtonsProps> = ({ hierarchy, selected, set
             >
                 {removing ? _t("redact|ongoing") : _t("action|remove")}
             </Button>
-            <Button
+            {/* <Button
                 {...props}
                 onClick={async (): Promise<void> => {
                     setSaving(true);
@@ -745,7 +745,7 @@ const ManageButtons: React.FC<IManageButtonsProps> = ({ hierarchy, selected, set
                 disabled={disabled}
             >
                 {buttonText}
-            </Button>
+            </Button> */}
         </>
     );
 };

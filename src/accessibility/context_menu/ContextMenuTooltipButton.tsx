@@ -42,6 +42,7 @@ export const ContextMenuTooltipButton: React.FC<IProps> = ({
             aria-expanded={isExpanded}
             forceHide={isExpanded}
         >
+                        {props.title && !props.title.includes('options') && <span className="mx_RoomSublist_auxButtonText">ADD</span>}
             {children}
         </AccessibleTooltipButton>
     );

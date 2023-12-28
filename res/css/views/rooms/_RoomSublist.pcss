@@ -57,8 +57,6 @@ limitations under the License.
         .mx_RoomSublist_stickable {
             flex: 1;
             max-width: 100%;
-            background-color: #3777bc;
-            border-radius: 6px;
             height: 32px;
 
             /* Create a flexbox to make ordering easy */
@@ -74,8 +72,6 @@ limitations under the License.
                 height: 32px; /* to match the header container */
                 /* width set by JS because of a compat issue between Firefox and Chrome */
                 width: calc(100% - 15px);
-                background-color: #3777bc;
-                border-radius: 6px;
 
             }
 
@@ -110,34 +106,37 @@ limitations under the License.
         .mx_RoomSublist_menuButton {
             margin-left: 8px; /* should be the same as the notification badge */
             position: relative;
-            width: 24px;
-            height: 24px;
             border-radius: 8px;
 
             &::before {
                 content: "";
-                width: 16px;
-                height: 16px;
+                width: 24px;
+                height: 24px;
                 position: absolute;
-                top: 4px;
-                left: 4px;
                 mask-position: center;
                 mask-size: contain;
                 mask-repeat: no-repeat;
-                background: #ffffff;
+                background: #3777bc;
             }
+        }
+
+        .mx_RoomSublist_auxButtonText {
+            position: relative;
+            margin-left: 28px;
+            color: #3777bc;
+            font-size: 16px;
         }
 
         .mx_RoomSublist_auxButton:hover,
         .mx_RoomSublist_menuButton:hover {
-            background: $panel-actions;
+            background: rgba(55,119,188,.1);
         }
 
         /* Hide the menu button by default */
         .mx_RoomSublist_menuButton {
-            visibility: hidden;
-            width: 0;
-            margin: 0;
+             visibility: visible;
+            width: 24px;
+            margin-left: 8px;
         }
 
         .mx_RoomSublist_auxButton::before {
@@ -146,6 +145,16 @@ limitations under the License.
 
         .mx_RoomSublist_menuButton::before {
             mask-image: url("$(res)/img/element-icons/context-menu.svg");
+        }
+
+
+        .mx_RoomSublist_header_left {
+            display: flex;
+        }
+
+        .mx_RoomSublist_header_right {
+            display: flex;
+            margin-left: auto;
         }
 
         .mx_RoomSublist_headerText {
@@ -157,24 +166,24 @@ limitations under the License.
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            color: #ffffff;
+            margin-left: 12px;
 
             .mx_RoomSublist_collapseBtn {
                 display: inline-block;
                 position: relative;
-                width: 14px;
-                height: 14px;
+                width: 24px;
+                height: 24px;
                 margin-right: 6px;
 
                 &::before {
                     content: "";
-                    width: 18px;
-                    height: 18px;
+                    width: 24px;
+                    height: 24px;
                     position: absolute;
                     mask-position: center;
                     mask-size: contain;
                     mask-repeat: no-repeat;
-                    background-color: #ffffff;
+                    background-color: #3777bc;
                     mask-image: url("$(res)/img/feather-customised/chevron-down.svg");
                 }
 
@@ -195,6 +204,8 @@ limitations under the License.
 
     .mx_RoomSublist_resizeBox {
         position: relative;
+        margin-left: -12px;
+        margin-right: -12px;
 
         /* Create another flexbox column for the tiles */
         display: flex;

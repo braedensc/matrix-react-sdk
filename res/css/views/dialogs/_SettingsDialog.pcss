@@ -19,19 +19,37 @@ limitations under the License.
 .mx_RoomSettingsDialog,
 .mx_SpaceSettingsDialog,
 .mx_SpacePreferencesDialog {
+
     width: 90vw;
+
+
+    @media only screen and (max-width: 900px) {
+        width: 100%;
+   
+}
+
     max-width: 1000px;
     /* set the height too since tabbed view scrolls itself. */
     height: 80vh;
+
+
+
+
 
     .mx_TabbedView {
         top: 65px;
     }
 
+
     .mx_TabbedView .mx_SettingsTab {
         box-sizing: border-box;
+
+
+    @media only screen and (min-width: 900px) {
         min-width: 580px;
         padding-right: 100px;
+}
+  
         display: flex;
         flex-direction: column;
 
@@ -40,3 +58,4 @@ limitations under the License.
         padding-bottom: 100px;
     }
 }
+

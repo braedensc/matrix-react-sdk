@@ -21,8 +21,6 @@ limitations under the License.
     --gutterSize: 16px;
     --height-nested: 24px;
     --height-topLevel: 32px;
-
-    background: #1c293b;
     flex: 0 0 auto;
     padding: 0;
     margin: 0;
@@ -33,6 +31,8 @@ limitations under the License.
     /* Create another flexbox so the Panel fills the container */
     display: flex;
     flex-direction: column;
+    border: 3px solid #f9fafc;
+    border-right: none;
 
     .mx_SpacePanel_toggleCollapse {
         position: absolute;
@@ -119,6 +119,10 @@ limitations under the License.
         min-width: 40px;
     }
 
+    .mx_SpaceButton_avatarButton {
+        background-color: #f9fafc !important
+    }
+
     .mx_SpaceButton {
         border-radius: 8px;
         display: flex;
@@ -129,12 +133,12 @@ limitations under the License.
 
         &.mx_SpaceButton_active {
             &:not(.mx_SpaceButton_narrow) .mx_SpaceButton_selectionWrapper {
-                background-color: var(--activeBackground-color);
+                background-color: #3777bc;
             }
 
             &.mx_SpaceButton_narrow .mx_SpaceButton_selectionWrapper {
                 padding: var(--activeBorder-transparent-gap);
-                border: 3px var(--activeBorder-color) solid;
+                border: 1px #3777bc solid;
             }
         }
 
@@ -190,6 +194,7 @@ limitations under the License.
                 mask-size: 18px;
             }
         }
+
 
         &.mx_SpaceButton_home,
         &.mx_SpaceButton_favourites,

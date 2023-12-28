@@ -222,20 +222,7 @@ const NewRoomIntro: React.FC = () => {
         }
 
         const avatarUrl = room.currentState.getStateEvents(EventType.RoomAvatar, "")?.getContent()?.url;
-        let avatar = <RoomAvatar room={room} size={AVATAR_SIZE} viewAvatarOnClick={!!avatarUrl} />;
-
-        if (!avatarUrl) {
-            avatar = (
-                <MiniAvatarUploader
-                    hasAvatar={false}
-                    noAvatarLabel={_t("room|intro|no_avatar_label")}
-                    setAvatarUrl={(url) => cli.sendStateEvent(roomId, EventType.RoomAvatar, { url }, "")}
-                >
-                    {avatar}
-                </MiniAvatarUploader>
-            );
-        }
-
+        const avatar = <RoomAvatar room={room} size={AVATAR_SIZE} viewAvatarOnClick={!!avatarUrl} />;
         body = (
             <React.Fragment>
                 {avatar}

@@ -90,7 +90,7 @@ export const SpaceButton: React.FC<IButtonProps> = ({
         </div>
     );
     if (space) {
-        avatar = <RoomAvatar size={size} room={space} type="square" />;
+        avatar = <RoomAvatar size={size} room={space} type="square" className="mx_Spacebutton_avatarButton" />;
     }
 
     let notifBadge;

@@ -30,6 +30,7 @@ import { NonEmptyArray } from "../../../@types/common";
 import SettingsTab from "../settings/tabs/SettingsTab";
 import { SettingsSection } from "../settings/shared/SettingsSection";
 import SettingsSubsection, { SettingsSubsectionText } from "../settings/shared/SettingsSubsection";
+import UIStore from "../../../stores/UIStore";
 
 interface IProps {
     space: Room;
@@ -80,7 +81,7 @@ const SpacePreferencesDialog: React.FC<IProps> = ({ space, initialTabId, onFinis
 
     return (
         <BaseDialog
-            className="mx_SpacePreferencesDialog"
+            className={UIStore.instance.windowWidth > 900 ? "mx_SpacePreferencesDialog" : "mx_SpacePreferencesDialogMobile"}
             hasCancel
             onFinished={onFinished}
             title={_t("common|preferences")}

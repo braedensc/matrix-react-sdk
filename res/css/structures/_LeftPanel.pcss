@@ -99,6 +99,7 @@ limitations under the License.
     flex-direction: row;
     flex: 1;
     height: 100%; /* ensure space panel is still scrollable with an outer wrapper */
+    max-width: 100%;
 
     .mx_LeftPanel_mobileWrapper--user {
         background-color: $roomlist-bg-color;
@@ -115,7 +116,7 @@ limitations under the License.
 
 
 .mx_LeftPanel {
-    background-color: rgba(55,119,188,.5);
+    background-color: #f9fafc;
 
     /* Create a row-based flexbox for the space panel and the room list */
     display: flex;
@@ -133,8 +134,8 @@ limitations under the License.
         /* Create another flexbox (this time a column) for the room list components */
         display: flex;
         flex-direction: column;
-        border: 3px solid rgba(55,119,188,.5);
-        border-left: none;
+        border: 3px solid #f9fafc;
+        border-right: 12px solid #f9fafc;
         border-radius: 6px;
 
         .mx_LeftPanel_userHeader {
@@ -275,7 +276,6 @@ limitations under the License.
 
         .mx_LeftPanel_roomListWrapper {
             /* Make the y-scrollbar more responsive */
-            padding-right: 2px;
             overflow: hidden;
             margin-top: 10px; /* so we're not up against the search/filter */
             flex: 1 0 0; /* needed in Safari to properly set flex-basis */

@@ -711,26 +711,30 @@ export default class RoomSublist extends React.Component<IProps, IState> {
                         >
                             <div className="mx_RoomSublist_stickableContainer">
                                 <div className="mx_RoomSublist_stickable">
-                                    <Button
-                                        onFocus={onFocus}
-                                        inputRef={ref}
-                                        tabIndex={tabIndex}
-                                        className="mx_RoomSublist_headerText"
-                                        aria-expanded={this.state.isExpanded}
-                                        onClick={this.onHeaderClick}
-                                        onContextMenu={this.onContextMenu}
-                                        title={this.props.isMinimized ? this.props.label : undefined}
-                                    >
-                                        <span className={collapseClasses} />
+                                    <div className="mx_RoomSublist_header_left">
                                         <span id={getLabelId(this.props.tagId)}>{this.props.label}</span>
-                                    </Button>
-                                    {this.renderMenu()}
-                                    {this.props.isMinimized ? null : badgeContainer}
-                                    {this.props.isMinimized ? null : addRoomButton}
+                                        {this.props.isMinimized ? null : badgeContainer}
+                                        {this.renderMenu()}
+                                    </div>
+                                    <div className = "mx_RoomSublist_header_right">
+                                        {this.props.isMinimized ? null : addRoomButton}
+                                        <Button
+                                            onFocus={onFocus}
+                                            inputRef={ref}
+                                            tabIndex={tabIndex}
+                                            className="mx_RoomSublist_headerText"
+                                            aria-expanded={this.state.isExpanded}
+                                            onClick={this.onHeaderClick}
+                                            onContextMenu={this.onContextMenu}
+                                            title={this.props.isMinimized ? this.props.label : undefined}
+                                        >
+                                            <span className={collapseClasses} />
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
-                            {this.props.isMinimized ? badgeContainer : null}
-                            {this.props.isMinimized ? addRoomButton : null}
+                   
+
                         </div>
                     );
                 }}

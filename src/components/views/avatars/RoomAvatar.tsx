@@ -26,7 +26,10 @@ import DMRoomMap from "../../../utils/DMRoomMap";
 import { mediaFromMxc } from "../../../customisations/Media";
 import { IOOBData } from "../../../stores/ThreepidInviteStore";
 import { LocalRoom } from "../../../models/LocalRoom";
+import dis from "../../../dispatcher/dispatcher";
 import { filterBoolean } from "../../../utils/arrays";
+import { OpenSpaceSettingsPayload } from "../../../dispatcher/payloads/OpenSpaceSettingsPayload";
+import { Action } from "../../../dispatcher/actions";
 
 interface IProps extends Omit<ComponentProps<typeof BaseAvatar>, "name" | "idName" | "url" | "onClick"> {
     // Room may be left unset here, but if it is,
@@ -74,7 +77,6 @@ export default class RoomAvatar extends React.Component<IProps, IState> {
 
     private onRoomStateEvents = (ev: MatrixEvent): void => {
         if (ev.getRoomId() !== this.props.room?.roomId || ev.getType() !== EventType.RoomAvatar) return;
-
         this.setState({
             urls: RoomAvatar.getImageUrls(this.props),
         });
@@ -103,15 +105,16 @@ export default class RoomAvatar extends React.Component<IProps, IState> {
     }
 
     private onRoomAvatarClick = (): void => {
-        const avatarUrl = Avatar.avatarUrlForRoom(this.props.room ?? null, undefined, undefined, undefined);
-        if (!avatarUrl) return;
-        const params = {
-            src: avatarUrl,
-            name: this.props.room?.name,
-        };
-
-        Modal.createDialog(ImageView, params, "mx_Dialog_lightbox", undefined, true);
+        if (!this.props.room?.isSpaceRoom()) {   
+            dis.dispatch({
+                action: "open_room_settings",
+                room_id: this.props.room?.roomId ,
+            });
+    }
+        
     };
+
+
 
     private get roomIdName(): string | undefined {
         const room = this.props.room;
@@ -131,7 +134,7 @@ export default class RoomAvatar extends React.Component<IProps, IState> {
     }
 
     public render(): React.ReactNode {
-        const { room, oobData, viewAvatarOnClick, onClick, className, ...otherProps } = this.props;
+        const { room, oobData, viewAvatarOnClick, onClick, ...otherProps } = this.props;
         const roomName = room?.name ?? oobData.name ?? "?";
 
         return (
@@ -141,7 +144,7 @@ export default class RoomAvatar extends React.Component<IProps, IState> {
                 name={roomName}
                 idName={this.roomIdName}
                 urls={this.state.urls}
-                onClick={viewAvatarOnClick && this.state.urls[0] ? this.onRoomAvatarClick : onClick}
+                onClick={this.onRoomAvatarClick}
             />
         );
     }

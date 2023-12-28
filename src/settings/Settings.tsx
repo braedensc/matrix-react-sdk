@@ -502,7 +502,7 @@ export const SETTINGS: { [setting: string]: ISetting } = {
     "MessageComposerInput.showStickersButton": {
         supportedLevels: LEVELS_ACCOUNT_SETTINGS,
         displayName: _td("settings|show_stickers_button"),
-        default: true,
+        default: false,
         controller: new UIFeatureController(UIFeature.Widgets, false),
     },
     "MessageComposerInput.showPollsButton": {

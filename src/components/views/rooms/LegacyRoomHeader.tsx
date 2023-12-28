@@ -70,8 +70,7 @@ import { ViewRoomPayload } from "../../../dispatcher/payloads/ViewRoomPayload";
 import { SessionDuration } from "../voip/CallDuration";
 import { Alignment } from "../elements/Tooltip";
 import RoomCallBanner from "../beacon/RoomCallBanner";
-import { shouldShowComponent } from "../../../customisations/helpers/UIComponents";
-import { UIComponent } from "../../../settings/UIFeature";
+import UIStore from "../../../stores/UIStore";
 
 class DisabledWithReason {
     public constructor(public readonly reason: string) {}
@@ -769,7 +768,7 @@ export default class RoomHeader extends React.Component<IProps, IState> {
                     room={this.props.room}
                     size="24px"
                     oobData={this.props.oobData}
-                    viewAvatarOnClick={true}
+                    viewAvatarOnClick={false}
                 />
             );
         }
@@ -831,7 +830,7 @@ export default class RoomHeader extends React.Component<IProps, IState> {
             );
         }
 
-        const topicElement = <RoomTopic room={this.props.room} className="mx_LegacyRoomHeader_topic" />;
+        const topicElement = UIStore.instance.windowWidth > 900 ? <RoomTopic room={this.props.room} className="mx_LegacyRoomHeader_topic" /> : null;
 
         const viewLabs = (): void =>
             defaultDispatcher.dispatch({

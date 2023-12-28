@@ -75,45 +75,6 @@ const SpaceContextMenu: React.FC<IProps> = ({ space, hideHeader, onFinished, ...
         );
     }
 
-    let settingsOption: JSX.Element | null = null;
-    let leaveOption: JSX.Element | null = null;
-    if (shouldShowSpaceSettings(space)) {
-        const onSettingsClick = (ev: ButtonEvent): void => {
-            ev.preventDefault();
-            ev.stopPropagation();
-
-            showSpaceSettings(space);
-            onFinished();
-        };
-
-        settingsOption = (
-            <IconizedContextMenuOption
-                data-testid="settings-option"
-                iconClassName="mx_SpacePanel_iconSettings"
-                label={_t("common|settings")}
-                onClick={onSettingsClick}
-            />
-        );
-    } else {
-        const onLeaveClick = (ev: ButtonEvent): void => {
-            ev.preventDefault();
-            ev.stopPropagation();
-
-            leaveSpace(space);
-            onFinished();
-        };
-
-        leaveOption = (
-            <IconizedContextMenuOption
-                data-testid="leave-option"
-                iconClassName="mx_SpacePanel_iconLeave"
-                className="mx_IconizedContextMenu_option_red"
-                label={_t("space|leave_dialog_action")}
-                onClick={onLeaveClick}
-            />
-        );
-    }
-
     let devtoolsOption: JSX.Element | null = null;
     if (SettingsStore.getValue("developerMode")) {
         const onViewTimelineClick = (ev: ButtonEvent): void => {
@@ -172,9 +133,6 @@ const SpaceContextMenu: React.FC<IProps> = ({ space, hideHeader, onFinished, ...
 
         newRoomSection = (
             <>
-                <div data-testid="add-to-space-header" className="mx_SpacePanel_contextMenu_separatorLabel">
-                    {_t("action|add")}
-                </div>
                 {canAddRooms && (
                     <IconizedContextMenuOption
                         data-testid="new-room-option"
@@ -189,16 +147,6 @@ const SpaceContextMenu: React.FC<IProps> = ({ space, hideHeader, onFinished, ...
                         iconClassName="mx_SpacePanel_iconPlus"
                         label={_t("common|video_room")}
                         onClick={onNewVideoRoomClick}
-                    >
-                        <BetaPill />
-                    </IconizedContextMenuOption>
-                )}
-                {canAddSubSpaces && (
-                    <IconizedContextMenuOption
-                        data-testid="new-subspace-option"
-                        iconClassName="mx_SpacePanel_iconPlus"
-                        label={_t("common|space")}
-                        onClick={onNewSubspaceClick}
                     >
                         <BetaPill />
                     </IconizedContextMenuOption>
@@ -248,18 +196,11 @@ const SpaceContextMenu: React.FC<IProps> = ({ space, hideHeader, onFinished, ...
                 />
                 {inviteOption}
                 <IconizedContextMenuOption
-                    iconClassName="mx_SpacePanel_iconExplore"
-                    label={canAddRooms ? _t("space|context_menu|manage_and_explore") : _t("space|context_menu|explore")}
-                    onClick={onExploreRoomsClick}
-                />
-                <IconizedContextMenuOption
                     iconClassName="mx_SpacePanel_iconPreferences"
                     label={_t("common|preferences")}
                     onClick={onPreferencesClick}
                 />
                 {devtoolsOption}
-                {settingsOption}
-                {leaveOption}
                 {newRoomSection}
             </IconizedContextMenuOptionList>
         </IconizedContextMenu>

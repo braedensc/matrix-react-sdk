@@ -361,8 +361,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
                     title={_t("room_list|add_room_label")}
                     isExpanded={menuDisplayed}
                     inputRef={handle}
-                />
-
+                 />
                 {contextMenu}
             </>
         );

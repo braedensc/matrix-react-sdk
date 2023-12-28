@@ -26,7 +26,12 @@ limitations under the License.
 
         .mx_ProfileSettings_profile_controls {
             flex-grow: 1;
-            margin-inline-end: 54px;
+            margin: 0px;  
+            @media only screen and (min-width: 900px) {
+                margin-inline-end: 54px;
+                }
+                
+       
 
             .mx_Field {
                 margin-top: $spacing-8;

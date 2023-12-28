@@ -25,6 +25,7 @@ import AutoHideScrollbar from "./AutoHideScrollbar";
 import { PosthogScreenTracker, ScreenName } from "../../PosthogTrackers";
 import { NonEmptyArray } from "../../@types/common";
 import { RovingAccessibleButton, RovingTabIndexProvider } from "../../accessibility/RovingTabIndex";
+import UIStore from "../../stores/UIStore";
 
 /**
  * Represents a tab for the TabbedView.
@@ -151,8 +152,8 @@ export default class TabbedView<T extends string> extends React.Component<IProps
 
         const tabbedViewClasses = classNames({
             mx_TabbedView: true,
-            mx_TabbedView_tabsOnLeft: this.props.tabLocation == TabLocation.LEFT,
-            mx_TabbedView_tabsOnTop: this.props.tabLocation == TabLocation.TOP,
+            mx_TabbedView_tabsOnLeft: UIStore.instance.windowWidth > 900 && this.props.tabLocation == TabLocation.LEFT,
+            mx_TabbedView_tabsOnTop: UIStore.instance.windowWidth <= 900 ||  this.props.tabLocation == TabLocation.TOP,
         });
 
         const screenName = tab?.screenName ?? this.props.screenName;

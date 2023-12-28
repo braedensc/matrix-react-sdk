@@ -716,7 +716,7 @@ class LoggedInView extends React.Component<IProps, IState> {
                                         />
                                     </div>
                                 </nav>
-                                <ResizeHandle passRef={this.resizeHandler} id="lp-resizer" />
+                                {/* <ResizeHandle passRef={this.resizeHandler} id="lp-resizer" /> */}
                                 </div>)}
                             </div>
                            {this.state.shouldShowLeftBar && (
@@ -758,7 +758,7 @@ class LoggedInView extends React.Component<IProps, IState> {
                                     </div>
                                 </nav>
                             </div>
-                            <ResizeHandle passRef={this.resizeHandler} id="lp-resizer" />
+                            {/* <ResizeHandle passRef={this.resizeHandler} id="lp-resizer" /> */}
                            <div className="mx_RoomView_wrapper">{pageElement}</div>
                         </div>
                     </div>

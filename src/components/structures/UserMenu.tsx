@@ -52,6 +52,7 @@ import { Icon as LiveIcon } from "../../../res/img/compound/live-8px.svg";
 import { VoiceBroadcastRecording, VoiceBroadcastRecordingsStoreEvent } from "../../voice-broadcast";
 import { SDKContext } from "../../contexts/SDKContext";
 import { shouldShowFeedback } from "../../utils/Feedback";
+import onsolveIcon from "../../../res/img/element-icons/onsolve-icon.svg";
 import UIStore from "../../stores/UIStore";
 
 interface IProps {
@@ -411,7 +412,7 @@ export default class UserMenu extends React.Component<IProps, IState> {
 
         const userId = MatrixClientPeg.safeGet().getSafeUserId();
         const displayName = OwnProfileStore.instance.displayName || userId;
-        const avatarUrl = OwnProfileStore.instance.getHttpAvatarUrl(avatarSize);
+        const avatarUrl = onsolveIcon;
 
         let name: JSX.Element | undefined;
         if (!this.props.isPanelCollapsed) {

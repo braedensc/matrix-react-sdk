@@ -39,6 +39,7 @@ interface IProps {
     oobData?: IOOBData;
     viewAvatarOnClick?: boolean;
     tooltipProps?: Omit<React.ComponentProps<typeof TooltipTarget>, "label" | "tooltipClassName" | "className">;
+    shouldOpenSettingOnClick?: boolean;
 }
 
 interface IState {
@@ -210,6 +211,7 @@ export default class DecoratedRoomAvatar extends React.PureComponent<IProps, ISt
                     size={this.props.size}
                     oobData={this.props.oobData}
                     viewAvatarOnClick={this.props.viewAvatarOnClick}
+                    shouldOpenSettingsOnClick={this.props.shouldOpenSettingOnClick}
                 />
                 {icon}
                 {badge}

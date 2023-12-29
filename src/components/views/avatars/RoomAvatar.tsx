@@ -18,9 +18,7 @@ import React, { ComponentProps } from "react";
 import { Room, RoomStateEvent, MatrixEvent, EventType, RoomType } from "matrix-js-sdk/src/matrix";
 
 import BaseAvatar from "./BaseAvatar";
-import ImageView from "../elements/ImageView";
 import { MatrixClientPeg } from "../../../MatrixClientPeg";
-import Modal from "../../../Modal";
 import * as Avatar from "../../../Avatar";
 import DMRoomMap from "../../../utils/DMRoomMap";
 import { mediaFromMxc } from "../../../customisations/Media";
@@ -28,8 +26,6 @@ import { IOOBData } from "../../../stores/ThreepidInviteStore";
 import { LocalRoom } from "../../../models/LocalRoom";
 import dis from "../../../dispatcher/dispatcher";
 import { filterBoolean } from "../../../utils/arrays";
-import { OpenSpaceSettingsPayload } from "../../../dispatcher/payloads/OpenSpaceSettingsPayload";
-import { Action } from "../../../dispatcher/actions";
 
 interface IProps extends Omit<ComponentProps<typeof BaseAvatar>, "name" | "idName" | "url" | "onClick"> {
     // Room may be left unset here, but if it is,
@@ -41,6 +37,7 @@ interface IProps extends Omit<ComponentProps<typeof BaseAvatar>, "name" | "idNam
     };
     viewAvatarOnClick?: boolean;
     onClick?(): void;
+    shouldOpenSettingsOnClick?: boolean;
 }
 
 interface IState {
@@ -134,9 +131,8 @@ export default class RoomAvatar extends React.Component<IProps, IState> {
     }
 
     public render(): React.ReactNode {
-        const { room, oobData, viewAvatarOnClick, onClick, ...otherProps } = this.props;
+        const { room, oobData, viewAvatarOnClick, onClick, shouldOpenSettingsOnClick = true, ...otherProps } = this.props;
         const roomName = room?.name ?? oobData.name ?? "?";
-
         return (
             <BaseAvatar
                 {...otherProps}
@@ -144,7 +140,7 @@ export default class RoomAvatar extends React.Component<IProps, IState> {
                 name={roomName}
                 idName={this.roomIdName}
                 urls={this.state.urls}
-                onClick={this.onRoomAvatarClick}
+                onClick={shouldOpenSettingsOnClick ? this.onRoomAvatarClick : onClick}
             />
         );
     }

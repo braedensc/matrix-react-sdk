@@ -34,7 +34,6 @@ import { _t } from "../../../languageHandler";
 import { useContextMenu } from "../../structures/ContextMenu";
 import SpaceCreateMenu from "./SpaceCreateMenu";
 import { SpaceButton, SpaceItem } from "./SpaceTreeLevel";
-import AccessibleTooltipButton from "../elements/AccessibleTooltipButton";
 import { useEventEmitter, useEventEmitterState } from "../../../hooks/useEventEmitter";
 import SpaceStore from "../../../stores/spaces/SpaceStore";
 import {
@@ -63,13 +62,11 @@ import QuickSettingsButton from "./QuickSettingsButton";
 import { useSettingValue } from "../../../hooks/useSettings";
 import UserMenu from "../../structures/UserMenu";
 import IndicatorScrollbar from "../../structures/IndicatorScrollbar";
-import { IS_MAC, Key } from "../../../Keyboard";
 import { useDispatcher } from "../../../hooks/useDispatcher";
 import defaultDispatcher from "../../../dispatcher/dispatcher";
 import { ActionPayload } from "../../../dispatcher/payloads";
 import { Action } from "../../../dispatcher/actions";
 import { NotificationState } from "../../../stores/notifications/NotificationState";
-import { ALTERNATE_KEY_NAME } from "../../../accessibility/KeyboardShortcuts";
 import { shouldShowComponent } from "../../../customisations/helpers/UIComponents";
 import { UIComponent } from "../../../settings/UIFeature";
 
@@ -153,11 +150,11 @@ const HomeButton: React.FC<MetaSpaceButtonProps> | null = ({ selected, isPanelCo
     useEffect(updateNotificationState, [updateNotificationState, allRoomsInHome]);
     useEventEmitter(RoomNotificationStateStore.instance, UPDATE_STATUS_INDICATOR, updateNotificationState);
 
-    const enabledMetaspaces = SettingsStore.getValue("Spaces.enabledMetaSpaces");
-    console.log('enabled spaces', enabledMetaspaces)
-    if (!enabledMetaspaces['home-space']) {
-        return null;
-    }
+    // const enabledMetaspaces = SettingsStore.getValue("Spaces.enabledMetaSpaces");
+    // console.log('enabled spaces', enabledMetaspaces)
+    // if (!enabledMetaspaces['home-space']) {
+    //     return null;
+    // }
 
     return (
         <MetaSpaceButton
@@ -361,7 +358,7 @@ const SpacePanel: React.FC = () => {
                         ref={ref}
                     >
                         <UserMenu isPanelCollapsed={isPanelCollapsed}>
-                            <AccessibleTooltipButton
+                            {/* <AccessibleTooltipButton
                                 className={classNames("mx_SpacePanel_toggleCollapse", { expanded: !isPanelCollapsed })}
                                 onClick={() => setPanelCollapsed(!isPanelCollapsed)}
                                 title={isPanelCollapsed ? _t("action|expand") : _t("action|collapse")}
@@ -380,7 +377,7 @@ const SpacePanel: React.FC = () => {
                                         </div>
                                     </div>
                                 }
-                            />
+                            /> */}
                         </UserMenu>
                         <Droppable droppableId="top-level-spaces">
                             {(provided, snapshot) => (

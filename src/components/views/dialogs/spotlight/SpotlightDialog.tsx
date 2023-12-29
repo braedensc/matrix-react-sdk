@@ -628,7 +628,7 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
                         endAdornment={<RoomResultContextMenus room={result.room} />}
                         {...ariaProperties}
                     >
-                        <DecoratedRoomAvatar room={result.room} size={AVATAR_SIZE} tooltipProps={{ tabIndex: -1 }} />
+                        <DecoratedRoomAvatar room={result.room} size={AVATAR_SIZE} tooltipProps={{ tabIndex: -1 }} shouldOpenSettingOnClick={false}/>
                         {result.room.name}
                         <NotificationBadge notification={notification} />
                         <RoomContextDetails
@@ -729,6 +729,7 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
                                 roomType: result.publicRoom.room_type,
                             }}
                             size={AVATAR_SIZE}
+                            shouldOpenSettingsOnClick={false}
                         />
                         <PublicRoomResultDetails
                             room={result.publicRoom}
@@ -1069,6 +1070,7 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
                                         room={room}
                                         size={AVATAR_SIZE}
                                         tooltipProps={{ tabIndex: -1 }}
+                                        shouldOpenSettingOnClick={false}
                                     />
                                     {room.name}
                                     <NotificationBadge notification={notification} />
@@ -1107,7 +1109,7 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
                                         viewRoom({ roomId: room.roomId }, false, ev.type !== "click");
                                     }}
                                 >
-                                    <DecoratedRoomAvatar room={room} size="32px" tooltipProps={{ tabIndex: -1 }} />
+                                    <DecoratedRoomAvatar room={room} size="32px" tooltipProps={{ tabIndex: -1 }}  shouldOpenSettingOnClick={false}/>
                                     {room.name}
                                 </TooltipOption>
                             ))}

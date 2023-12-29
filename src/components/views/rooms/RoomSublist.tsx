@@ -712,7 +712,7 @@ export default class RoomSublist extends React.Component<IProps, IState> {
                             <div className="mx_RoomSublist_stickableContainer">
                                 <div className="mx_RoomSublist_stickable">
                                     <div className="mx_RoomSublist_header_left">
-                                        <span id={getLabelId(this.props.tagId)}>{this.props.label}</span>
+                                        <span id={getLabelId(this.props.tagId)} className="mx_RoomSublist_header_title">{this.props.label}</span>
                                         {this.props.isMinimized ? null : badgeContainer}
                                         {this.renderMenu()}
                                     </div>

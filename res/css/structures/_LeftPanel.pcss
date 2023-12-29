@@ -44,10 +44,10 @@ limitations under the License.
     }
 
 .mx_LeftPanel_outerWrapper {
-    display: flex;
+    display: block;
     flex-direction: column;
-    max-width: 50%;
     position: relative;
+    width: 461px;
 
     /* Contain the amount of layers rendered by constraining what actually needs re-layering via css */
     contain: layout paint;
@@ -60,6 +60,10 @@ limitations under the License.
     position: relative;
     /* Contain the amount of layers rendered by constraining what actually needs re-layering via css */
     contain: layout paint;
+}
+
+.mx_LeftPanel_outerWrapperNone {
+    display: none;
 }
 
 .mx_LeftPanel_innerWrapperMobile {
@@ -77,10 +81,12 @@ limitations under the License.
 }
 
 .mx_LeftPanel_wrapper {
-    display: flex;
+    display: grid;
     flex-direction: row;
     flex: 1;
     height: 100%; /* ensure space panel is still scrollable with an outer wrapper */
+    grid-template-columns: 15% 85%;
+    
 
     .mx_LeftPanel_wrapper--user {
         background-color: $roomlist-bg-color;
@@ -263,15 +269,23 @@ limitations under the License.
             height: 28px;
             font-weight: 600;
             background-color: rgba(55,119,188,.1);
-            border: 1px solid transparent;
+            border: 1px solid #3777bc;
             display: flex;
-            font-size: 0.8rem;
-            border-radius: 1rem;
-            height: 22px;
+            font-size: 18px;
+            border-radius: 4px;
+            height: 28px;
             padding: 3px;
             font-weight: 600;
             align-items: center;
             color: #3777bc;
+            padding: 6px;
+        }
+
+        .mx_RoomListSummary {
+            color: #3777bc;
+            font-size: 14px;
+            font-weight: 200;
+
         }
 
         .mx_LeftPanel_roomListWrapper {

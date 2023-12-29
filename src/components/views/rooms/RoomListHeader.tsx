@@ -59,6 +59,7 @@ import SpaceContextMenu from "../context_menus/SpaceContextMenu";
 import InlineSpinner from "../elements/InlineSpinner";
 import TooltipTarget from "../elements/TooltipTarget";
 import { HomeButtonContextMenu } from "../spaces/SpacePanel";
+import RoomTopic from "../elements/RoomTopic";
 
 const contextMenuBelow = (elementRect: DOMRect): MenuProps => {
     // align the context menu's icons with the icon which opened the context menu
@@ -412,7 +413,7 @@ const RoomListHeader: React.FC<IProps> = ({ onVisibilityChange }) => {
         <div className="mx_RoomListHeader">
             {/* {contextMenuButton} */}
             <div className="mx_RoomListTitle">
-            { spaceName ?? activeSpace?.name}
+            { spaceName ?? activeSpace?.name ?? "All Rooms" }
             </div>
             {pendingActionSummary ? (
                 <TooltipTarget label={pendingActionSummary}>

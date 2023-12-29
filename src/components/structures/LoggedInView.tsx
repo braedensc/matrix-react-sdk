@@ -695,7 +695,7 @@ class LoggedInView extends React.Component<IProps, IState> {
 
                         <ToastContainer />
                         <div className={bodyClasses}>
-                            <div className={!this.state.shouldShowLeftBar ? "mx_LeftPanel_outerWrapperMobile": "mx_LeftPanel_outerWrapper"}>
+                            <div className={!this.state.shouldShowLeftBar ? "mx_LeftPanel_outerWrapperMobile": "mx_LeftPanel_outerWrapperNone"}>
                             {!this.state.shouldShowLeftBar && (
                                 <div className="mx_LeftPanel_innerWrapperMobile">
                             <LeftPanelLiveShareWarning isMinimized={false} />

@@ -310,7 +310,8 @@ const SpotlightDialog: React.FC<IProps> = ({ initialText = "", initialFilter = n
     const [inviteLinkCopied, setInviteLinkCopied] = useState<boolean>(false);
     const trimmedQuery = useMemo(() => query.trim(), [query]);
 
-    const [supportsSpaceFiltering, setSupportsSpaceFiltering] = useState(true); // assume it does until we find out it doesn't
+    // Remove the unused variable 'supportsSpaceFiltering'
+    useState(true); // assume it does until we find out it doesn't
     useEffect(() => {
         cli.isVersionSupported("v1.4")
             .then((supported) => {

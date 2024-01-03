@@ -156,7 +156,7 @@ export class SpaceStoreClass extends AsyncStoreWithClient<IState> {
     private _invitedSpaces = new Set<Room>();
     private spaceOrderLocalEchoMap = new Map<string, string | undefined>();
     // The following properties are set by onReady as they live in account_data
-    private _allRoomsInHome = false;
+    private _allRoomsInHome = true;
     private _enabledMetaSpaces: MetaSpace[] = [];
     /** Whether the feature flag is set for MSC3946 */
     private _msc3946ProcessDynamicPredecessor: boolean = SettingsStore.getValue("feature_dynamic_room_predecessors");

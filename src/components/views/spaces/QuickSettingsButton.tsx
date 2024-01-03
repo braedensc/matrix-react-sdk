@@ -111,7 +111,7 @@ const QuickSettingsButton: React.FC<{
         <>
             <AccessibleTooltipButton
                 className={classNames("mx_QuickSettingsButton", { expanded: !isPanelCollapsed })}
-                onClick={openMenu}
+                onClick={() =>  defaultDispatcher.dispatch({ action: Action.ViewUserSettings })}
                 title={_t("quick_settings|title")}
                 inputRef={handle}
                 forceHide={!isPanelCollapsed}

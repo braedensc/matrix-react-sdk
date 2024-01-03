@@ -369,10 +369,13 @@ const RoomListHeader: React.FC<IProps> = ({ onVisibilityChange }) => {
     }
 
     let title: string;
+    let canCreateChats: boolean;
     if (activeSpace && spaceName) {
         title = spaceName;
+        canCreateChats = true;
     } else {
         title = getMetaSpaceName(spaceKey as MetaSpace, allRoomsInHome);
+        canCreateChats = false;
     }
 
     const pendingActionSummary = [...pendingActions.entries()]
@@ -413,7 +416,7 @@ const RoomListHeader: React.FC<IProps> = ({ onVisibilityChange }) => {
         <div className="mx_RoomListHeader">
             {/* {contextMenuButton} */}
             <div className="mx_RoomListTitle">
-            { spaceName ?? activeSpace?.name ?? "All Rooms" }
+            { spaceName ?? activeSpace?.name ?? "All Messages" }
             </div>
             {pendingActionSummary ? (
                 <TooltipTarget label={pendingActionSummary}>

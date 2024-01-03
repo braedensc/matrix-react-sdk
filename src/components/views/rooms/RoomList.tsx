@@ -130,7 +130,7 @@ const DmAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex, dispatcher = default
             contextMenu = (
                 <IconizedContextMenu {...auxButtonContextMenuPosition(handle.current)} onFinished={closeMenu} compact>
                     <IconizedContextMenuOptionList first>
-                        {showCreateRooms && (
+                        {showCreateRooms && activeSpace && (
                             <IconizedContextMenuOption
                                 label={_t("action|start_new_chat")}
                                 iconClassName="mx_RoomList_iconStartChat"
@@ -181,21 +181,22 @@ const DmAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex, dispatcher = default
                 {contextMenu}
             </>
         );
-    } else if (!activeSpace && showCreateRooms) {
-        return (
-            <AccessibleTooltipButton
-                tabIndex={tabIndex}
-                onClick={(e) => {
-                    dispatcher.dispatch({ action: "view_create_chat" });
-                    PosthogTrackers.trackInteraction("WebRoomListRoomsSublistPlusMenuCreateChatItem", e);
-                }}
-                className="mx_RoomSublist_auxButton"
-                tooltipClassName="mx_RoomSublist_addRoomTooltip"
-                aria-label={_t("action|start_chat")}
-                title={_t("action|start_chat")}
-            />
-        );
     }
+    // } else if (!activeSpace && showCreateRooms) {
+    //     return (
+    //         <AccessibleTooltipButton
+    //             tabIndex={tabIndex}
+    //             onClick={(e) => {
+    //                 dispatcher.dispatch({ action: "view_create_chat" });
+    //                 PosthogTrackers.trackInteraction("WebRoomListRoomsSublistPlusMenuCreateChatItem", e);
+    //             }}
+    //             className="mx_RoomSublist_auxButton"
+    //             tooltipClassName="mx_RoomSublist_addRoomTooltip"
+    //             aria-label={_t("action|start_chat")}
+    //             title={_t("action|start_chat")}
+    //         />
+    //     );
+    // }
 
     return null;
 };
@@ -236,7 +237,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
                         PosthogTrackers.trackInteraction("WebRoomListRoomsSublistPlusMenuExploreRoomsItem", e);
                     }}
                 /> */}
-                {showCreateRoom ? (
+                {showCreateRoom  && activeSpace ? (
                     <>
                         <IconizedContextMenuOption
                             label={_t("action|new_room")}
@@ -289,7 +290,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
     } else if (menuDisplayed) {
         contextMenuContent = (
             <IconizedContextMenuOptionList first>
-                {showCreateRoom && (
+                {showCreateRoom && activeSpace && (
                     <>
                         <IconizedContextMenuOption
                             label={_t("action|new_room")}
@@ -323,19 +324,6 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
                         )}
                     </>
                 )}
-                {showExploreRooms ? (
-                    <IconizedContextMenuOption
-                        label={_t("action|explore_public_rooms")}
-                        iconClassName="mx_RoomList_iconExplore"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            closeMenu();
-                            PosthogTrackers.trackInteraction("WebRoomListRoomsSublistPlusMenuExploreRoomsItem", e);
-                            defaultDispatcher.fire(Action.ViewRoomDirectory);
-                        }}
-                    />
-                ) : null}
             </IconizedContextMenuOptionList>
         );
     }
@@ -349,7 +337,7 @@ const UntaggedAuxButton: React.FC<IAuxButtonProps> = ({ tabIndex }) => {
         );
     }
 
-    if (showCreateRoom || showExploreRooms) {
+    if (showCreateRoom && activeSpace) {
         return (
             <>
                 <ContextMenuTooltipButton

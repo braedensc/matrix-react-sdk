@@ -1746,7 +1746,7 @@
         "all_settings": "All settings",
         "metaspace_section": "Pin to sidebar",
         "sidebar_settings": "More options",
-        "title": "Quick settings"
+        "title": "Settings"
     },
     "quit_warning": {
         "call_in_progress": "You seem to be in a call, are you sure you want to quit?",

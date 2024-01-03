@@ -164,7 +164,7 @@ const HomeButton: React.FC<MetaSpaceButtonProps> | null = ({ selected, isPanelCo
             isPanelCollapsed={isPanelCollapsed}
             label={getMetaSpaceName(MetaSpace.Home, allRoomsInHome)}
             notificationState={notificationState}
-            ContextMenuComponent={HomeButtonContextMenu}
+            // ContextMenuComponent={HomeButtonContextMenu}
             contextMenuTooltip={_t("common|options")}
             size="32px"
         />

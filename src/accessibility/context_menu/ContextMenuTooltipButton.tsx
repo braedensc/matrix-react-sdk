@@ -23,6 +23,7 @@ import AccessibleTooltipButton from "../../components/views/elements/AccessibleT
 interface IProps extends React.ComponentProps<typeof AccessibleTooltipButton> {
     // whether or not the context menu is currently open
     isExpanded: boolean;
+    shouldShowAddText?: boolean
 }
 
 // Semantic component for representing the AccessibleButton which launches a <ContextMenu />
@@ -31,6 +32,7 @@ export const ContextMenuTooltipButton: React.FC<IProps> = ({
     children,
     onClick,
     onContextMenu,
+    shouldShowAddText,
     ...props
 }) => {
     return (
@@ -42,7 +44,7 @@ export const ContextMenuTooltipButton: React.FC<IProps> = ({
             aria-expanded={isExpanded}
             forceHide={isExpanded}
         >
-                        {props.title && !props.title.includes('options') && <span className="mx_RoomSublist_auxButtonText">ADD</span>}
+                        {shouldShowAddText && <span className="mx_RoomSublist_auxButtonText">ADD</span>}
             {children}
         </AccessibleTooltipButton>
     );

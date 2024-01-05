@@ -1144,16 +1144,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
             );
         }
 
-        const linkedTimestamp = !this.props.hideTimestamp ? (
-            <a
-                href={permalink}
-                onClick={this.onPermalinkClicked}
-                aria-label={formatTime(new Date(this.props.mxEvent.getTs()), this.props.isTwelveHour)}
-                onContextMenu={this.onTimestampContextMenu}
-            >
-                {timestamp}
-            </a>
-        ) : null;
+        const linkedTimestamp =  null;
 
         const useIRCLayout = this.props.layout === Layout.IRC;
         const groupTimestamp = !useIRCLayout ? linkedTimestamp : null;
@@ -1246,9 +1237,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                                 this.context.showHiddenEvents,
                             )}
                             {actionBar}
-                            <a href={permalink} onClick={this.onPermalinkClicked}>
-                                {timestamp}
-                            </a>
+     
                             {msgOption}
                         </div>,
                         reactionsRow,
@@ -1409,7 +1398,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                         {ircTimestamp}
                         {sender}
                         {ircPadlock}
-                        {avatar}
+                        {!isOwnEvent && avatar}
                         <div className={lineClasses} key="mx_EventTile_line" onContextMenu={this.onContextMenu}>
                             {this.renderContextMenu()}
                             {groupTimestamp}
@@ -1441,6 +1430,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                                 </>
                             )}
                         </div>
+                        {isOwnEvent && avatar}
                         {this.props.layout !== Layout.IRC && (
                             <>
                                 {reactionsRow}

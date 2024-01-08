@@ -327,9 +327,7 @@ export default class MessagePanel extends React.Component<IProps, IState> {
 
     private shouldHideSender(): boolean {
         return (
-            !!this.props.room &&
-            this.props.room.getInvitedAndJoinedMemberCount() <= 2 &&
-            this.props.layout === Layout.Bubble
+            false
         );
     }
 

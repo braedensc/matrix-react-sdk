@@ -127,7 +127,7 @@ limitations under the License.
     .mx_EventTile_container {
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: start;
     }
 
     .mx_EventTile_avatarLeftWrapper {
@@ -153,6 +153,10 @@ limitations under the License.
             /* For RTL displayName */
             unicode-bidi: embed;
             direction: ltr;
+            color:  #8A8C8C;
+            font-weight: 400;
+            font-size: 12px;
+
         }
 
         .mx_DisambiguatedProfile_mxid {
@@ -271,7 +275,7 @@ limitations under the License.
         }
 
         .mx_DisambiguatedProfile {
-            display: none;
+            
         }
 
         .mx_ReplyTile .mx_DisambiguatedProfile {
@@ -608,8 +612,11 @@ limitations under the License.
         min-width: 100%;
         /* Preserve alignment with left edge of text in bubbles */
         margin: 0;
+         margin-right: -8px !important;
     }
+
 }
+
 
 .mx_EventTile.mx_EventTile_bubbleContainer[data-layout="bubble"],
 .mx_EventTile.mx_EventTile_leftAlignedBubble[data-layout="bubble"],

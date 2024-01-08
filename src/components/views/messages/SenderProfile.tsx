@@ -25,9 +25,10 @@ interface IProps {
     mxEvent: MatrixEvent;
     onClick?(): void;
     withTooltip?: boolean;
+    timestamp?: any;
 }
 
-export default function SenderProfile({ mxEvent, onClick, withTooltip }: IProps): JSX.Element {
+export default function SenderProfile({ mxEvent, onClick, withTooltip, timestamp }: IProps): JSX.Element {
     const member = useRoomMemberProfile({
         userId: mxEvent.getSender(),
         member: mxEvent.sender,
@@ -41,6 +42,7 @@ export default function SenderProfile({ mxEvent, onClick, withTooltip }: IProps)
             colored={true}
             emphasizeDisplayName={true}
             withTooltip={withTooltip}
+            timestamp={timestamp}
         />
     ) : (
         <></>

@@ -22,6 +22,7 @@ import classNames from "classnames";
 import { _t } from "../../../languageHandler";
 import { getUserNameColorClass } from "../../../utils/FormattingUtils";
 import UserIdentifier from "../../../customisations/UserIdentifier";
+import { time } from "console";
 
 interface IProps {
     member?: RoomMember | null;
@@ -30,11 +31,12 @@ interface IProps {
     colored?: boolean;
     emphasizeDisplayName?: boolean;
     withTooltip?: boolean;
+    timestamp?: any;
 }
 
 export default class DisambiguatedProfile extends React.Component<IProps> {
     public render(): React.ReactNode {
-        const { fallbackName, member, colored, emphasizeDisplayName, withTooltip, onClick } = this.props;
+        const { fallbackName, member, colored, emphasizeDisplayName, withTooltip, onClick, timestamp } = this.props;
         const rawDisplayName = member?.rawDisplayName || fallbackName;
         const mxid = member?.userId;
 
@@ -68,7 +70,7 @@ export default class DisambiguatedProfile extends React.Component<IProps> {
         return (
             <div className="mx_DisambiguatedProfile" title={withTooltip ? title : undefined} onClick={onClick}>
                 <span className={displayNameClasses} dir="auto">
-                    {rawDisplayName}
+                    {rawDisplayName} {timestamp}
                 </span>
                 {mxidElement}
             </div>

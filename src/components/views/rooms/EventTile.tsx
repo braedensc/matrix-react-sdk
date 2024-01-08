@@ -42,7 +42,7 @@ import ReplyChain from "../elements/ReplyChain";
 import { _t } from "../../../languageHandler";
 import dis from "../../../dispatcher/dispatcher";
 import { Layout } from "../../../settings/enums/Layout";
-import { formatTime } from "../../../DateUtils";
+import { formatRelativeTime, formatTime } from "../../../DateUtils";
 import { MatrixClientPeg } from "../../../MatrixClientPeg";
 import { DecryptionFailureBody } from "../messages/DecryptionFailureBody";
 import RoomAvatar from "../avatars/RoomAvatar";
@@ -1027,8 +1027,8 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
             avatarSize = "32px";
             needsSenderProfile = true;
         } else if (eventType === EventType.RoomCreate || isBubbleMessage) {
-            avatarSize = null;
-            needsSenderProfile = false;
+            avatarSize = "30px";
+            needsSenderProfile = true;
         } else if (this.props.layout == Layout.IRC) {
             avatarSize = "14px";
             needsSenderProfile = true;
@@ -1074,6 +1074,36 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
             );
         }
 
+        const showTimestamp =
+        this.props.mxEvent.getTs() &&
+        !this.props.hideTimestamp &&
+        (this.props.alwaysShowTimestamps ||
+            this.props.last ||
+            this.state.hover ||
+            this.state.actionBarFocused ||
+            Boolean(this.state.contextMenu));
+
+    // Thread panel shows the timestamp of the last reply in that thread
+    let ts =
+        this.context.timelineRenderingType !== TimelineRenderingType.ThreadsList
+            ? this.props.mxEvent.getTs()
+            : this.state.thread?.replyToEvent?.getTs();
+    if (typeof ts !== "number") {
+        // Fall back to something we can use
+        ts = this.props.mxEvent.getTs();
+    }
+
+    const messageTimestamp = (
+        <MessageTimestamp
+            showRelative={this.context.timelineRenderingType === TimelineRenderingType.ThreadsList}
+            showTwelveHour={this.props.isTwelveHour}
+            ts={ts}
+            receivedTs={getLateEventInfo(this.props.mxEvent)?.received_ts}
+        />
+    );
+
+    const timestamp = showTimestamp && ts ? messageTimestamp : null;
+
         if (needsSenderProfile && this.props.hideSender !== true) {
             if (
                 this.context.timelineRenderingType === TimelineRenderingType.Room ||
@@ -1081,11 +1111,11 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                 this.context.timelineRenderingType === TimelineRenderingType.Pinned ||
                 this.context.timelineRenderingType === TimelineRenderingType.Thread
             ) {
-                sender = <SenderProfile onClick={this.onSenderProfileClick} mxEvent={this.props.mxEvent} />;
+                sender = <SenderProfile onClick={this.onSenderProfileClick} mxEvent={this.props.mxEvent} timestamp={formatTime(new Date(ts), true)} />;
             } else if (this.context.timelineRenderingType === TimelineRenderingType.ThreadsList) {
                 sender = <SenderProfile mxEvent={this.props.mxEvent} withTooltip />;
             } else {
-                sender = <SenderProfile mxEvent={this.props.mxEvent} />;
+                sender = <SenderProfile mxEvent={this.props.mxEvent} timestamp={formatTime(new Date(ts), true)} />;
             }
         }
 
@@ -1104,35 +1134,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
             />
         ) : undefined;
 
-        const showTimestamp =
-            this.props.mxEvent.getTs() &&
-            !this.props.hideTimestamp &&
-            (this.props.alwaysShowTimestamps ||
-                this.props.last ||
-                this.state.hover ||
-                this.state.actionBarFocused ||
-                Boolean(this.state.contextMenu));
-
-        // Thread panel shows the timestamp of the last reply in that thread
-        let ts =
-            this.context.timelineRenderingType !== TimelineRenderingType.ThreadsList
-                ? this.props.mxEvent.getTs()
-                : this.state.thread?.replyToEvent?.getTs();
-        if (typeof ts !== "number") {
-            // Fall back to something we can use
-            ts = this.props.mxEvent.getTs();
-        }
-
-        const messageTimestamp = (
-            <MessageTimestamp
-                showRelative={this.context.timelineRenderingType === TimelineRenderingType.ThreadsList}
-                showTwelveHour={this.props.isTwelveHour}
-                ts={ts}
-                receivedTs={getLateEventInfo(this.props.mxEvent)?.received_ts}
-            />
-        );
-
-        const timestamp = showTimestamp && ts ? messageTimestamp : null;
+     
 
         let reactionsRow: JSX.Element | undefined;
         if (!isRedacted) {
@@ -1379,6 +1381,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
             default: {
                 // Pinned, Room, Search
                 // tab-index=-1 to allow it to be focusable but do not add tab stop for it, primarily for screen readers
+                console.log('roomtype', this.props.mxEvent.getType())
                 return React.createElement(
                     this.props.as || "li",
                     {
@@ -1400,7 +1403,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                         {sender}
                         {ircPadlock}
                         <div className="mx_EventTile_container">
-                        {!isOwnEvent && <div className="mx_EventTile_avatarLeftWrapper">{avatar}</div>}
+                        {(!isOwnEvent || (this.props.mxEvent.getType() !== "m.room.message" && !this.props.mxEvent.getType().includes("poll"))) && <div className="mx_EventTile_avatarLeftWrapper">{avatar}</div>}
                     
                         <div className={lineClasses} key="mx_EventTile_line" onContextMenu={this.onContextMenu}>
                             {this.renderContextMenu()}
@@ -1433,7 +1436,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                                 </>
                             )}
                         </div>
-                        {isOwnEvent && <div className="mx_EventTile_avatarRightWrapper">{avatar}</div>}
+                        {(isOwnEvent && (this.props.mxEvent.getType() === "m.room.message" ||  this.props.mxEvent.getType().includes("poll"))) &&<div className="mx_EventTile_avatarRightWrapper">{avatar}</div>}
                         </div>
                         {this.props.layout !== Layout.IRC && (
                             <>

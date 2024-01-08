@@ -1068,6 +1068,7 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                         size={avatarSize}
                         viewUserOnClick={viewUserOnClick}
                         forceHistorical={this.props.mxEvent.getType() === EventType.RoomMember}
+                        className="mx_EventTile_memberAvatar"
                     />
                 </div>
             );
@@ -1398,7 +1399,9 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                         {ircTimestamp}
                         {sender}
                         {ircPadlock}
-                        {!isOwnEvent && avatar}
+                        <div className="mx_EventTile_container">
+                        {!isOwnEvent && <div className="mx_EventTile_avatarLeftWrapper">{avatar}</div>}
+                    
                         <div className={lineClasses} key="mx_EventTile_line" onContextMenu={this.onContextMenu}>
                             {this.renderContextMenu()}
                             {groupTimestamp}
@@ -1430,13 +1433,15 @@ export class UnwrappedEventTile extends React.Component<EventTileProps, IState> 
                                 </>
                             )}
                         </div>
-                        {isOwnEvent && avatar}
+                        {isOwnEvent && <div className="mx_EventTile_avatarRightWrapper">{avatar}</div>}
+                        </div>
                         {this.props.layout !== Layout.IRC && (
                             <>
                                 {reactionsRow}
                                 {this.renderThreadInfo()}
                             </>
                         )}
+                     
                         {msgOption}
                     </>,
                 );

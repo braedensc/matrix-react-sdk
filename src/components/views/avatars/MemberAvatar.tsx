@@ -39,7 +39,9 @@ interface IProps extends Omit<React.ComponentProps<typeof BaseAvatar>, "name" | 
     style?: any;
     forceHistorical?: boolean; // true to deny `useOnlyCurrentProfiles` usage. Default false.
     hideTitle?: boolean;
+    className?: string;
     children?: ReactNode;
+
 }
 
 export default function MemberAvatar({

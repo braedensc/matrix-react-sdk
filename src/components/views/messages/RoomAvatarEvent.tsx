@@ -67,7 +67,7 @@ export default class RoomAvatarEvent extends React.Component<IProps> {
         };
 
         return (
-            <>
+            <span className="mx_RoomAvatarEvent_text">
                 {_t(
                     "timeline|m.room.avatar|changed_img",
                     { senderDisplayName: senderDisplayName },
@@ -83,7 +83,7 @@ export default class RoomAvatarEvent extends React.Component<IProps> {
                         ),
                     },
                 )}
-            </>
+            </span>
         );
     }
 }

@@ -103,7 +103,7 @@ const GenericEventListSummary: React.FC<IProps> = ({
             }),
             (member) => member.getMxcAvatarUrl(),
         );
-        const avatars = uniqueMembers.map((m) => <MemberAvatar key={m.userId} member={m} size="14px" />);
+        const avatars = uniqueMembers.map((m) => <MemberAvatar key={m.userId} member={m} size="14px" className="mx_GenericEventList_memberAvatar" />);
         body = (
             <div className="mx_EventTile_line">
                 <div className="mx_EventTile_info">

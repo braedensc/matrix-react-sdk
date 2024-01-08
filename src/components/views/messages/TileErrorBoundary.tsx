@@ -104,7 +104,7 @@ export default class TileErrorBoundary extends React.Component<IProps, IState> {
             return (
                 <li className={classNames(classes)} data-layout={this.props.layout}>
                     <div className="mx_EventTile_line">
-                        <span>
+                        <span className="mx_EventTile_line_content">
                             {_t("timeline|error_rendering_message")}
                             {mxEvent && ` (${mxEvent.getType()})`}
                             {submitLogsButton}

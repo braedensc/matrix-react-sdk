@@ -261,6 +261,10 @@ $left-gutter: 64px;
         }
     }
 
+    .mx_EventTile_line_content {
+        color: #565858;
+    }
+
     &[data-layout="bubble"],
     &[data-layout="group"] {
         .mx_EventTileBubble {
@@ -462,6 +466,7 @@ $left-gutter: 64px;
             .mx_ViewSourceEvent, /* For hidden events */
             .mx_TextualEvent {
                 line-height: var(--irc-line-height);
+                color: #565858;
             }
         }
 
@@ -660,6 +665,10 @@ $left-gutter: 64px;
     }
 }
 
+.mx_GenericEventList_memberAvatar {
+    background-color: #3777BC !important;
+    color: white !important;
+}
 .mx_EventTile_content {
     /*
     all the overflow-y: hidden; are to trap Zalgos -
@@ -998,6 +1007,11 @@ $left-gutter: 64px;
     }
 }
 
+.mx_EventTile_memberAvatar {
+    background-color: #3777BC !important;
+    color: white !important;
+}
+
 .mx_EventTile:hover .mx_MessageActionBar,
 .mx_EventTile.mx_EventTile_actionBarFocused .mx_MessageActionBar,
 [data-whatinput="keyboard"] .mx_EventTile:focus-within .mx_MessageActionBar,
@@ -1095,6 +1109,8 @@ $left-gutter: 64px;
     .mx_EventTile_avatar {
         inset: $padding auto auto $padding;
     }
+
+   
 
     .mx_EventTile_details {
         overflow: hidden;

@@ -75,15 +75,15 @@ export default class UserSettingsDialog extends React.Component<IProps, IState> 
 
     private getTabs(): NonEmptyArray<Tab<UserTab>> {
         const tabs: Tab<UserTab>[] = [];
-        tabs.push(
-            new Tab(
-                UserTab.Appearance,
-                _td("common|appearance"),
-                "mx_UserSettingsDialog_appearanceIcon",
-                <AppearanceUserSettingsTab />,
-                "UserSettingsAppearance",
-            ),
-        );
+        // tabs.push(
+        //     new Tab(
+        //         UserTab.Appearance,
+        //         _td("common|appearance"),
+        //         "mx_UserSettingsDialog_appearanceIcon",
+        //         <AppearanceUserSettingsTab />,
+        //         "UserSettingsAppearance",
+        //     ),
+        // );
       tabs.push(
             new Tab(
                 UserTab.Notifications,

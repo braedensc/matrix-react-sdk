@@ -79,8 +79,8 @@ function SendButton(props: ISendButtonProps): JSX.Element {
             className="mx_MessageComposer_sendMessage"
             onClick={props.onClick}
             title={props.title ?? _t("composer|send_button_title")}
-            data-testid="sendmessagebtn"
-        />
+            data-testid="sendmessagebtn"><div className="mx_MessageComposer_sendText">SEND</div></AccessibleTooltipButton>
+        
     );
 }
 

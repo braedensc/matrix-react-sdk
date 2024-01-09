@@ -142,7 +142,7 @@ const Entry: React.FC<IEntryProps> = ({ room, type, content, matrixClient: cli, 
                 title={_t("forward|open_room")}
                 alignment={Alignment.Top}
             >
-                <DecoratedRoomAvatar room={room} size="32px" />
+                <DecoratedRoomAvatar room={room} size="32px" shouldOpenSettingOnClick={false} />
                 <span className="mx_ForwardList_entry_name">{room.name}</span>
                 <RoomContextDetails component="span" className="mx_ForwardList_entry_detail" room={room} />
             </AccessibleTooltipButton>

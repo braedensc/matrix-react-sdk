@@ -22,6 +22,8 @@ import React, {
     InputHTMLAttributes,
     LegacyRef,
     RefObject,
+    SVGProps,
+    FC,
 } from "react";
 import classNames from "classnames";
 import { Room, RoomEvent } from "matrix-js-sdk/src/matrix";
@@ -29,7 +31,7 @@ import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 
 import RoomAvatar from "../avatars/RoomAvatar";
 import SpaceStore from "../../../stores/spaces/SpaceStore";
-import { SpaceKey } from "../../../stores/spaces";
+import { MetaSpace, SpaceKey } from "../../../stores/spaces";
 import SpaceTreeLevelLayoutStore from "../../../stores/spaces/SpaceTreeLevelLayoutStore";
 import NotificationBadge from "../rooms/NotificationBadge";
 import { _t } from "../../../languageHandler";
@@ -47,6 +49,10 @@ import SpaceContextMenu from "../context_menus/SpaceContextMenu";
 import AccessibleTooltipButton from "../elements/AccessibleTooltipButton";
 import { useRovingTabIndex } from "../../../accessibility/RovingTabIndex";
 import { KeyBindingAction } from "../../../accessibility/KeyboardShortcuts";
+import HomeIcon from "../../../../res/img/element-icons/home.svg";
+import GeneralChatIcon from  "../../../../res/img/element-icons/generalChat.svg";
+import  RecipientAssistanceIcon  from "../../../../res/img/element-icons/recipientAssistance.svg";
+import IncidentChannelsIcon  from "../../../../res/img/element-icons/incidentChannels.svg";
 
 interface IButtonProps extends Omit<ComponentProps<typeof AccessibleTooltipButton>, "title" | "onClick" | "size"> {
     space?: Room;
@@ -84,13 +90,37 @@ export const SpaceButton: React.FC<IButtonProps> = ({
 
     const spaceKey = _spaceKey ?? space?.roomId;
 
+    const getSpaceIcon = (): string | undefined => {
+
+        if (space?.name === "General Chat") {
+            return GeneralChatIcon;
+        }
+        if (space?.name === "Recipient Assistance") {
+            return RecipientAssistanceIcon;
+        }
+        if (space?.name === "Incident Channels") {
+            return IncidentChannelsIcon;
+        }
+
+        return undefined;
+
+
+    }
+
     let avatar = (
         <div className="mx_SpaceButton_avatarPlaceholder">
             <div className="mx_SpaceButton_icon" />
         </div>
     );
+
+    if (spaceKey === MetaSpace.Home) {
+   avatar =  
+        <img src={HomeIcon} alt=""  className="mx_SpaceButton_homeIcon" />
+   
+    }
+
     if (space) {
-        avatar = <RoomAvatar size={size} room={space} type="square" />;
+        avatar = <RoomAvatar size={size} room={space} type="square" src={getSpaceIcon()} />;
     }
 
     let notifBadge;

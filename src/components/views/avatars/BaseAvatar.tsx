@@ -42,6 +42,7 @@ interface IProps {
     className?: string;
     tabIndex?: number;
     altText?: string;
+    src?: any;
 }
 
 const calculateUrls = (url?: string | null, urls?: string[], lowBandwidth = false): string[] => {
